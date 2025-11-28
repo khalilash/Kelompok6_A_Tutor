@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../login/login_screen.dart';
-import '../register/register_screen.dart';
+import 'login_screen.dart';
+import 'register_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -29,17 +29,9 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Image.asset(
                   "assets/logo.png",
-                  width: 130,
+                  width: 160,
                 ),
                 const SizedBox(height: 10),
-                // const Text(
-                //   "TUTOR",
-                //   style: TextStyle(
-                //     color: Colors.white,
-                //     fontSize: 32,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
               ],
             ),
 

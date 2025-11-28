@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import '../login/login_screen.dart';
+import 'register_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool passwordVisible = false;
-  bool confirmPasswordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,33 +21,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // HEADER
               const SizedBox(height: 20),
               const Text(
-                "Register",
+                "Login",
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF1D1D1D),
                 ),
               ),
+
               const SizedBox(height: 30),
 
-              // USERNAME
               const Text("Username*", style: _label),
               const SizedBox(height: 6),
               _inputField(hint: "Masukkan username anda"),
 
               const SizedBox(height: 16),
 
-              // EMAIL
-              const Text("Email*", style: _label),
-              const SizedBox(height: 6),
-              _inputField(hint: "Masukkan email anda"),
-
-              const SizedBox(height: 16),
-
-              // PASSWORD
               const Text("Password*", style: _label),
               const SizedBox(height: 6),
               _passwordField(
@@ -60,30 +50,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 },
               ),
 
-              const SizedBox(height: 16),
-
-              // CONFIRM PASSWORD
-              const Text("Konfirmasi Password*", style: _label),
               const SizedBox(height: 6),
-              _passwordField(
-                visible: confirmPasswordVisible,
-                onToggle: () {
-                  setState(() {
-                    confirmPasswordVisible = !confirmPasswordVisible;
-                  });
-                },
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Forgot password?"),
+                  ),
+                ],
               ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
 
-              // PHONE
-              const Text("Nomor Telepon*", style: _label),
-              const SizedBox(height: 6),
-              _phoneField(),
-
-              const SizedBox(height: 30),
-
-              // BUTTON CREATE ACCOUNT
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -96,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   onPressed: () {},
                   child: const Text(
-                    "Create Account",
+                    "Log in",
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
@@ -107,18 +87,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Already have an account? "),
+                  const Text("Don't have an account yet? "),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const LoginScreen(),
+                          builder: (_) => const RegisterScreen(),
                         ),
                       );
                     },
                     child: const Text(
-                      "Login",
+                      "Register",
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold),
@@ -133,10 +113,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-
-// ------------------------------------------------------
-// STYLE + INPUT COMPONENTS
-// ------------------------------------------------------
 
 const TextStyle _label =
     TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
@@ -168,29 +144,6 @@ Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
           onPressed: onToggle,
         ),
       ),
-    ),
-  );
-}
-
-Widget _phoneField() {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14),
-    decoration: _box,
-    child: Row(
-      children: [
-        const Text("+62",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        const SizedBox(width: 10),
-        Expanded(
-          child: TextField(
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: "87xxxxxxxxxx",
-            ),
-          ),
-        ),
-      ],
     ),
   );
 }
