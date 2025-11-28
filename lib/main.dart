@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// HOME PAGE PUNYAMU
+// HOMEPAGE KAMU
 import 'screens/homepage/homepage.dart';
 
-// PAGE PUNYA TEMAN
-import 'screens/welcome/welcome_screen.dart';
+// FILE TEMAN (LOKASI BARU)
+import 'screens/login-register/welcome_screen.dart';
 import 'screens/chat/chat_list_screen.dart';
 import 'screens/search/search_page.dart';
 
@@ -21,16 +21,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // THEME
+      // THEME APP
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
         useMaterial3: false,
       ),
 
-      // HALAMAN AWAL (boleh ganti kalau mau Welcome/Home langsung)
+      // HALAMAN PERTAMA
       home: const WelcomeScreen(),
 
-      // ROUTE TAMBAHAN
+      // ROUTES
       routes: {
         '/homepage': (context) => const HomePage(),
         '/search': (context) => const SearchPage(),

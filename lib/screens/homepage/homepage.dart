@@ -158,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                                   name: "Khalila",
                                   role: "DMJK",
                                   price: "Rp50.000 / Sesi",
-                                  image: "assets/tutor1.png",
+                                  image: "assets/tutor1_naura.png",
                                   bgColor: Color(0xFFF6C49A),
                                 ),
                                 SizedBox(width: 14),
@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                                   name: "Naura",
                                   role: "Tekber",
                                   price: "Rp50.000 / Sesi",
-                                  image: "assets/tutor2.png",
+                                  image: "assets/tutor2_naura.png",
                                   bgColor: Color(0xFFF2B6C0),
                                 ),
                                 SizedBox(width: 14),
@@ -266,9 +266,9 @@ class _HomePageState extends State<HomePage> {
                           ? "Mulai Sekarang!"
                           : "Cek Tutor Favoritmu",
                   index == 0
-                      ? "assets/tutor1.png"
+                      ? "assets/tutor1_naura.png"
                       : index == 1
-                          ? "assets/tutor2.png"
+                          ? "assets/tutor2_naura.png"
                           : "assets/tutor3.png",
                 );
               },
