@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// gunakan WelcomeScreen milik kamu
-import 'screens/login-register/welcome_screen.dart';
+// Pilih yang sesuai lokasi WelcomeScreen milik kalian ↓
+// Kalau welcome_screen.dart ada di screens/welcome:
+import 'screens/welcome/welcome_screen.dart';
 
-// gunakan ChatListScreen milik temanmu
+// Kalau welcome_screen di login-register, pakai ini (ganti yang atas):
+// import 'screens/login-register/welcome_screen.dart';
+
 import 'screens/chat/chat_list_screen.dart';
+import 'screens/search/search_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,13 +25,13 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
-        useMaterial3: false, // pakai setting temanmu biar konsisten
+        useMaterial3: false,
       ),
 
-      // Halaman pertama aplikasi → WelcomeScreen milik kamu
-      home: const WelcomeScreen(),
+      // HALAMAN YANG PERTAMA MUNCUL
+      home: const SearchPage(),
 
-      // Semua route digabung
+      // Semua route lain tetap ada
       routes: {
         '/welcome': (context) => const WelcomeScreen(),
         '/chat': (context) => const ChatListScreen(),

@@ -28,6 +28,7 @@ flutter:
 
   assets:
     - assets/logo.png
+    - assets/background tutor.png
     - assets/tutor1.png
     - assets/tutor2.png
     - assets/background_tutor.png
