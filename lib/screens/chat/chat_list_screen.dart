@@ -1,5 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'chat_room_screen.dart';
+
+// GSM TUTOR Colors
+class GsmColors {
+  static const Color orangeDark = Color(0xFFD65609);
+  static const Color orangeLight = Color(0xFFFFA975);
+
+  static const Color purpleDark = Color(0xFF566CD8);
+  static const Color purpleLight = Color(0xFFBCC6F6);
+
+  static const Color pinkDark = Color(0xFFFFACB9);
+  static const Color pinkLight = Color(0xFFFEB8C3);
+
+  static const Color textPink = Color(0xFFFF687F);
+  static const Color textPurple = Color(0xFF566CD8);
+  static const Color textOrange = Color(0xFFD65609);
+}
 
 class ChatListScreen extends StatelessWidget {
   const ChatListScreen({super.key});
@@ -50,15 +67,15 @@ class ChatListScreen extends StatelessWidget {
                 height: 160,
                 child: Stack(
                   children: [
-                    // bg ungu
+                    // bg gradient ungu GSM
                     Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Color(0xFFBFC9FF),
-                            Color(0xFFA8B6FF),
+                            GsmColors.purpleLight,
+                            GsmColors.purpleDark,
                           ],
                         ),
                         borderRadius: BorderRadius.only(
@@ -68,7 +85,7 @@ class ChatListScreen extends StatelessWidget {
                       ),
                     ),
 
-                    // 🎨 elemen lengkung putih di kiri atas
+                    // elemen lengkung putih di kiri atas
                     Positioned(
                       top: -80,
                       left: -120,
@@ -99,11 +116,11 @@ class ChatListScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 12),
-                          const Text(
+                          Text(
                             'Chat',
-                            style: TextStyle(
+                            style: GoogleFonts.poppins(
                               fontSize: 24,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
                           ),
@@ -132,17 +149,20 @@ class ChatListScreen extends StatelessWidget {
                               ),
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
-                              child: const Row(
+                              child: Row(
                                 children: [
                                   Expanded(
                                     child: TextField(
-                                      decoration: InputDecoration(
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 13,
+                                      ),
+                                      decoration: const InputDecoration(
                                         hintText: 'Cari chat',
                                         border: InputBorder.none,
                                       ),
                                     ),
                                   ),
-                                  Icon(Icons.search),
+                                  const Icon(Icons.search),
                                 ],
                               ),
                             ),
@@ -223,7 +243,7 @@ class _ChatItem extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFF6F2FF),
+            color: GsmColors.purpleLight.withOpacity(0.35),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -253,10 +273,10 @@ class _ChatItem extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
                         fontSize: 16,
-                        color: Color(0xFF4B3C73),
+                        color: GsmColors.textPurple,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -264,9 +284,9 @@ class _ChatItem extends StatelessWidget {
                       message,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 13,
-                        color: Color(0xFF6E6E8F),
+                        color: const Color(0xFF6E6E8F),
                       ),
                     ),
                   ],
@@ -278,9 +298,9 @@ class _ChatItem extends StatelessWidget {
                 children: [
                   Text(
                     time,
-                    style: const TextStyle(
+                    style: GoogleFonts.poppins(
                       fontSize: 11,
-                      color: Color(0xFF6E6E8F),
+                      color: const Color(0xFF6E6E8F),
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -291,15 +311,15 @@ class _ChatItem extends StatelessWidget {
                         vertical: 3,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF6E8BFF),
+                        color: GsmColors.purpleDark,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
                         unread.toString(),
-                        style: const TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Colors.white,
                           fontSize: 11,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
@@ -338,7 +358,7 @@ class _BottomNavBar extends StatelessWidget {
                 Container(
                   height: 46,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFBFC9FF),
+                    color: GsmColors.purpleLight,
                     borderRadius: BorderRadius.circular(23),
                     boxShadow: [
                       BoxShadow(
@@ -350,13 +370,19 @@ class _BottomNavBar extends StatelessWidget {
                   ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.home_rounded,
-                          color: Colors.white, size: 24),
-                      Icon(Icons.person_rounded,
-                          color: Colors.white, size: 24),
+                      Icon(
+                        Icons.home_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                      Icon(
+                        Icons.person_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                     ],
                   ),
                 ),
