@@ -315,7 +315,7 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
     );
   }
 
-  // ======================== TAG COMPONENT ========================
+  // ======================== TAG CMPONENT ========================
   Widget _tag(String txt) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

@@ -119,7 +119,7 @@ class _SuccessScreenState extends State<SuccessScreen>
 
                 const SizedBox(height: 24),
 
-                // FADE IN BUTTON
+                // FADE IN BUTTO
                 FadeTransition(
                   opacity: _fadeIn,
                   child: SizedBox(

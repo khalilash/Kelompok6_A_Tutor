@@ -222,7 +222,7 @@ class TutorListScreen extends StatelessWidget {
   }
 
   // ==========================
-  // BACKGROUND GRADIENT
+  // BACKGROUND GRADIEN
   // ==========================
   BoxDecoration _background() {
     return const BoxDecoration(

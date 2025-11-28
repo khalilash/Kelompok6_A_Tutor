@@ -268,7 +268,7 @@ class OrderDetailScreen extends StatelessWidget {
   }
 
   // =============================================
-  // BACKGROUND
+  // BACKGROUN
   // =============================================
   BoxDecoration _bg() {
     return const BoxDecoration(
