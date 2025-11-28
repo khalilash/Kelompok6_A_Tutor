@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-// import welcome (punya temenmu)
-import 'screens/welcome/welcome_screen.dart';
-// import chat list (punyamu)
+// gunakan WelcomeScreen milik kamu
+import 'screens/login-register/welcome_screen.dart';
+
+// gunakan ChatListScreen milik temanmu
 import 'screens/chat/chat_list_screen.dart';
 
 void main() {
@@ -17,11 +19,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      // 🔹 SEMENTARA: langsung buka halaman ChatList dulu
-      // home: const WelcomeScreen(),   // ini nanti bisa dipakai lagi
-      home: const ChatListScreen(),
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        useMaterial3: false, // pakai setting temanmu biar konsisten
+      ),
 
-      // 🔹 Optional: sekalian daftarin route, kalau mau pakai Navigator.pushNamed
+      // Halaman pertama aplikasi → WelcomeScreen milik kamu
+      home: const WelcomeScreen(),
+
+      // Semua route digabung
       routes: {
         '/welcome': (context) => const WelcomeScreen(),
         '/chat': (context) => const ChatListScreen(),
