@@ -370,7 +370,7 @@ class _BottomNavBar extends StatelessWidget {
                   ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(

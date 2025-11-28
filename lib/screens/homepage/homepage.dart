@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                           BorderRadius.vertical(top: Radius.circular(40)),
                     ),
                     padding: const EdgeInsets.all(20),
-                    child: SingleChildScrollView(
+                    child: const SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                           Row(
                             mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text("Kategori",
                                   style: TextStyle(
                                       fontSize: 18,
@@ -99,16 +99,16 @@ class _HomePageState extends State<HomePage> {
                               _LihatSemuaBtn(),
                             ],
                           ),
-                          const SizedBox(height: 4),
-                          const Text("Pilih Kategori Bidang yang Kamu Inginkan",
+                          SizedBox(height: 4),
+                          Text("Pilih Kategori Bidang yang Kamu Inginkan",
                               style: TextStyle(
                                   color: Colors.grey, fontSize: 12)),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16),
 
                           Row(
                             mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               PuzzleItem(
                                 title: "Sistem\nBasis Data",
                                 count: "18 Tutor",
@@ -130,13 +130,13 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
 
-                          const SizedBox(height: 28),
+                          SizedBox(height: 28),
 
                           // ===== REKOMENDASI =====
                           Row(
                             mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text("Rekomendasi Tutor",
                                   style: TextStyle(
                                       fontSize: 18,
@@ -144,16 +144,16 @@ class _HomePageState extends State<HomePage> {
                               _LihatSemuaBtn(),
                             ],
                           ),
-                          const SizedBox(height: 6),
-                          const Text("Cari Tutor Yang Cocok Untukmu",
+                          SizedBox(height: 6),
+                          Text("Cari Tutor Yang Cocok Untukmu",
                               style: TextStyle(
                                   color: Colors.grey, fontSize: 12)),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16),
 
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: const [
+                              children: [
                                 TutorCardFancy(
                                   name: "Khalila",
                                   role: "DMJK",

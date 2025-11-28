@@ -165,7 +165,7 @@ Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
         suffixIcon: IconButton(
           icon: Icon(
             visible ? Icons.visibility : Icons.visibility_off,
-            color: Color(0xFF343446),
+            color: const Color(0xFF343446),
           ),
           onPressed: onToggle,
         ),
@@ -176,5 +176,5 @@ Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
 
 final BoxDecoration _box = BoxDecoration(
   borderRadius: BorderRadius.circular(8),
-  border: Border.all(color: Color(0xFF343446)),
+  border: Border.all(color: const Color(0xFF343446)),
 );

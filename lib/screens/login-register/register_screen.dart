@@ -199,7 +199,7 @@ Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
         suffixIcon: IconButton(
           icon: Icon(
             visible ? Icons.visibility : Icons.visibility_off,
-            color: Color(0xFF343446),
+            color: const Color(0xFF343446),
           ),
           onPressed: onToggle,
         ),
@@ -212,15 +212,15 @@ Widget _phoneField() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14),
     decoration: _box,
-    child: Row(
+    child: const Row(
       children: [
-        const Text(
+        Text(
           "+62",
           style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF343446)),
         ),
-        const SizedBox(width: 10),
-        const Expanded(
+        SizedBox(width: 10),
+        Expanded(
           child: TextField(
             keyboardType: TextInputType.number,
             style: TextStyle(color: Color(0xFF343446)),
@@ -238,5 +238,5 @@ Widget _phoneField() {
 
 final BoxDecoration _box = BoxDecoration(
   borderRadius: BorderRadius.circular(8),
-  border: Border.all(color: Color(0xFF343446)),
+  border: Border.all(color: const Color(0xFF343446)),
 );
