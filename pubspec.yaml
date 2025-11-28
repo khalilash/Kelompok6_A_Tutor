@@ -5,6 +5,11 @@ version: 0.1.0
 
 environment:
   sdk: ^3.9.2
+name: tekber_app
+description: Tutor Booking App UI
+publish_to: "none"
+
+version: 1.0.0+1
 
 dependencies:
   flutter:
