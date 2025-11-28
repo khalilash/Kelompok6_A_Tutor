@@ -20,7 +20,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
-
-
-
-
+    - assets/bg.png
+    - assets/tutor1.png
+    - assets/tutor2.png
+    - assets/tutor3.png
+    - assets/profile.jpg
+    - assets/popup.png

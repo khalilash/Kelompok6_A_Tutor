@@ -1,5 +1,24 @@
+// import 'package:flutter/material.dart';
+// import 'screens/homepage/homepage.dart';
+
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: HomePage(),   // halaman pertama aplikasi
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
-import 'screens/welcome/welcome_screen.dart';
+import 'screens/homepage/homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +29,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const WelcomeScreen(),   // halaman pertama aplikasi
+      home: HomePage(),
     );
   }
 }
