@@ -1,0 +1,37 @@
+# Gitignore for Flutter projects
+
+# Build artifacts
+.dart_tool/
+.flutter-plugins/
+.flutter-plugins-dependencies/
+.packages
+build/
+*.iml
+*.lock
+android/local.properties
+ios/.symlinks/
+ios/Flutter/Generated.xcconfig
+ios/Pods/
+ios/.build/
+
+# IDE files
+.idea/
+.vscode/
+
+# Dependency caches
+.pub-cache/
+
+# Local configuration files
+*.env
+.env.*
+env.dart
+lib/firebase_options.dart # If you're using Firebase and don't want to commit this
+
+# macOS specific files
+.DS_Store
+
+# Windows specific files
+Thumbs.db
+
+# Other temporary files
+temp/
