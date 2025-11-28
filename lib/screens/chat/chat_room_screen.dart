@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// GSM TUTOR Colors (kalau mau rapi bisa dipindah ke file terpisah)
+class GsmColors {
+  static const Color orangeDark = Color(0xFFD65609);
+  static const Color orangeLight = Color(0xFFFFA975);
+
+  static const Color purpleDark = Color(0xFF566CD8);
+  static const Color purpleLight = Color(0xFFBCC6F6);
+
+  static const Color pinkDark = Color(0xFFFFACB9);
+  static const Color pinkLight = Color(0xFFFEB8C3);
+
+  static const Color textPink = Color(0xFFFF687F);
+  static const Color textPurple = Color(0xFF566CD8);
+  static const Color textOrange = Color(0xFFD65609);
+}
 
 class ChatRoomScreen extends StatelessWidget {
   final String tutorName;
@@ -24,7 +41,7 @@ class ChatRoomScreen extends StatelessWidget {
       ChatMessage(
         fromMe: true,
         text:
-            'Kamu butuh untuk kapan?\nUntuk beberapa hari ke depan sesi turtorku masih banyak yang kosong sih, dicek ajaa',
+            'Kamu butuh untuk kapan?\nUntuk beberapa hari ke depan sesi tutorku masih banyak yang kosong sih, dicek ajaa',
       ),
       ChatMessage(
         fromMe: false,
@@ -38,14 +55,14 @@ class ChatRoomScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFBFC9FF),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color(0xFFBFC9FF),
-                Color(0xFFA4B8FF),
+                GsmColors.purpleLight,
+                GsmColors.purpleDark,
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -60,8 +77,10 @@ class ChatRoomScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_new,
-                          color: Colors.white),
+                      icon: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.white,
+                      ),
                       onPressed: () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 4),
@@ -81,14 +100,15 @@ class ChatRoomScreen extends StatelessWidget {
                       children: [
                         Text(
                           tutorName,
-                          style: const TextStyle(
+                          style: GoogleFonts.poppins(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'PWEB',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             color: Colors.white70,
                             fontSize: 12,
                           ),
@@ -117,14 +137,15 @@ class ChatRoomScreen extends StatelessWidget {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withOpacity(0.9),
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Today',
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             fontSize: 12,
-                            color: Color(0xFF4B3C73),
+                            color: GsmColors.textPurple,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -135,14 +156,27 @@ class ChatRoomScreen extends StatelessWidget {
 
               // Chat list
               Expanded(
-                child: ListView.builder(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  itemCount: messages.length,
-                  itemBuilder: (context, index) {
-                    final msg = messages[index];
-                    return _ChatBubble(message: msg);
-                  },
+                child: Container(
+                  // biar bagian bawah lebih keputihan
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.15),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 8),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      final msg = messages[index];
+                      return _ChatBubble(message: msg);
+                    },
+                  ),
                 ),
               ),
 
@@ -165,13 +199,13 @@ class DetailOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF6F2FF),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(0.10),
+            blurRadius: 12,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -180,7 +214,7 @@ class DetailOrderCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 22,
-            backgroundColor: Colors.white,
+            backgroundColor: GsmColors.purpleLight,
             child: ClipOval(
               child: Image.asset(
                 'assets/logo.png', // ganti
@@ -195,36 +229,41 @@ class DetailOrderCard extends StatelessWidget {
               children: [
                 Text(
                   tutorName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF4B3C73),
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600,
+                    color: GsmColors.textPurple,
+                    fontSize: 14,
                   ),
                 ),
-                const Text(
+                Text(
                   'PWEB',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: Colors.grey,
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Detail Pesanan:',
-                  style: TextStyle(
+                  style: GoogleFonts.poppins(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
+                    color: Colors.black87,
                   ),
                 ),
-                const Text(
+                Text(
                   '4 August 2025, 02.00–02.50\n'
                   '15 Mei 2025, 01.00–01.50',
-                  style: TextStyle(fontSize: 11),
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: Colors.black87,
+                  ),
                 ),
               ],
             ),
           ),
           const SizedBox(width: 4),
-          const Icon(Icons.close, size: 18),
+          const Icon(Icons.close, size: 18, color: Colors.grey),
         ],
       ),
     );
@@ -247,10 +286,11 @@ class _ChatBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMe = message.fromMe;
 
-    final bgColor =
-        isMe ? const Color(0xFFFFC5E0) : const Color(0xFFE0F0FF); // pink / biru
-    final align =
-        isMe ? Alignment.centerRight : Alignment.centerLeft;
+    final bgColor = isMe
+        ? GsmColors.pinkLight       // bubble kita
+        : GsmColors.purpleLight;    // bubble user
+    final align = isMe ? Alignment.centerRight : Alignment.centerLeft;
+
     final radius = BorderRadius.only(
       topLeft: const Radius.circular(18),
       topRight: const Radius.circular(18),
@@ -274,7 +314,10 @@ class _ChatBubble extends StatelessWidget {
         ),
         child: Text(
           message.text,
-          style: const TextStyle(fontSize: 13),
+          style: GoogleFonts.poppins(
+            fontSize: 13,
+            color: Colors.black87,
+          ),
         ),
       ),
     );
@@ -287,7 +330,7 @@ class _ChatInputBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFE6E7FF),
+      color: GsmColors.purpleLight.withOpacity(0.6),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: SafeArea(
         top: false,
@@ -295,7 +338,7 @@ class _ChatInputBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.add),
+              icon: const Icon(Icons.add, color: GsmColors.purpleDark),
             ),
             Expanded(
               child: Container(
@@ -305,9 +348,14 @@ class _ChatInputBar extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const TextField(
+                child: TextField(
+                  style: GoogleFonts.poppins(fontSize: 13),
                   decoration: InputDecoration(
                     hintText: 'Tulis pesan...',
+                    hintStyle: GoogleFonts.poppins(
+                      fontSize: 13,
+                      color: Colors.grey,
+                    ),
                     border: InputBorder.none,
                   ),
                 ),
@@ -315,7 +363,7 @@ class _ChatInputBar extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.send),
+              icon: const Icon(Icons.send, color: GsmColors.orangeDark),
             ),
           ],
         ),
