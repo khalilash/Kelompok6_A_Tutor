@@ -1,43 +1,38 @@
+name: tutor
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
 name: tekber_app
 description: Tutor Booking App UI
 publish_to: "none"
 
 version: 1.0.0+1
 
-environment:
-  sdk: ">=3.4.0 <4.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.6
-  google_fonts: ^6.2.1
-  lottie: ^3.1.2
-  intl: ^0.19.0
-
-  table_calendar: ^3.0.9
-
+  google_fonts: ^6.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
-
   assets:
-    - assets/logo.png
-    - assets/bg.png
-    - assets/tutor3.png
-    - assets/profile.jpg
-    - assets/popup.png
-    - assets/background tutor.png
-    - assets/tutor1.png
-    - assets/tutor2.png
-    - assets/background_tutor.png
-    - assets/background-tutor.png
-    - assets/login.png
-    - assets/register.png
-    - assets/tutor1_naura.png
-    - assets/tutor2_naura.png
+    - assets/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+
+
+
+
