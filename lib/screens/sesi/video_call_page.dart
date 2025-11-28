@@ -37,7 +37,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
               alignment: Alignment.topLeft,
               child: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.maybePop(context),
+                onPressed: () => Navigator.pop(context),
               ),
             ),
           ),

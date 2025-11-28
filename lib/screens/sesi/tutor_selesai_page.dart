@@ -8,41 +8,43 @@ class TutorSelesaiPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xFFB3C7FF), Color(0xFFDCE6FF)], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+          image: DecorationImage(
+            image: AssetImage("assets/bg.png"),
+            fit: BoxFit.cover,
+          ),
         ),
         child: SafeArea(
           child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 320,
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)]),
-                  child: Column(
-                    children: [
-                      const Icon(Icons.check_circle_outline, size: 64, color: Color(0xFF6C63FF)),
-                      const SizedBox(height: 12),
-                      const Text('Sesi Tutor Telah Selesai', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                      const SizedBox(height: 14),
-                      ElevatedButton(
-                        onPressed: () {
-                          // mark hasRecording true by sending arg when going back to detail
-                          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false, arguments: {'hasRecording': true});
-                        },
-                        child: const Text('Selesai'),
-                      ),
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/review');
-                        },
-                        child: const Text('Ulas Sekarang'),
-                      ),
-                    ],
+            child: Container(
+              width: 320,
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: const [
+                  BoxShadow(color: Colors.black26, blurRadius: 12)
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.check_circle_outline,
+                      size: 64, color: Color(0xFF6C63FF)),
+                  const SizedBox(height: 12),
+                  const Text('Sesi Tutor Telah Selesai',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  const SizedBox(height: 16),
+
+                  /// Hanya tombol SELESAI
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/review');
+                    },
+                    child: const Text("Selesai"),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

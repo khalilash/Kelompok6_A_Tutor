@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Tutor Session',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Poppins',
         primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: Colors.white,
         useMaterial3: true,
