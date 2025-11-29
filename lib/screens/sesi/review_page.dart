@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 
+
 class ReviewPage extends StatefulWidget {
   const ReviewPage({super.key});
+
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
 }
 
+
 class _ReviewPageState extends State<ReviewPage> {
   int rating = 4;
+
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
+
     final args = ModalRoute.of(context)?.settings.arguments;
+
 
     if (args is Map<String, dynamic>) {
       rating = args["ratingAwal"] ?? 4;
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // APPBAR
       appBar: AppBar(
         title: const Text('Detail Sesi'),
         backgroundColor: Colors.white,
@@ -35,24 +42,24 @@ class _ReviewPageState extends State<ReviewPage> {
         ),
       ),
 
+
       body: Stack(
         children: [
-          // ---------------- BACKGROUND GAMBAR ----------------
           Positioned.fill(
             child: Image.asset(
-              "assets/bg.png",
+              "assets/bgsesi.png",
               fit: BoxFit.cover,
             ),
           ),
 
-          // ---------------- OVERLAY PUTIH OPACITY ----------------
+
           Positioned.fill(
             child: Container(
               color: Colors.white.withOpacity(0.85),
             ),
           ),
 
-          // ---------------- CARD PUTIH MELAYANG ----------------
+
           Align(
             alignment: Alignment.topCenter,
             child: Container(
@@ -61,7 +68,7 @@ class _ReviewPageState extends State<ReviewPage> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 8,
@@ -69,13 +76,15 @@ class _ReviewPageState extends State<ReviewPage> {
                   )
                 ],
               ),
+
+
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Tutor Info
                   ListTile(
                     leading: const CircleAvatar(
-                      backgroundImage: AssetImage("assets/tutor.png"),
+                      backgroundImage: AssetImage("assets/tutorsesi.png"),
+                      backgroundColor: Colors.white, // <-- latar putih
                     ),
                     title: const Text(
                       "Khalila",
@@ -93,9 +102,10 @@ class _ReviewPageState extends State<ReviewPage> {
                     ),
                   ),
 
+
                   const SizedBox(height: 12),
 
-                  // RATING
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(5, (i) {
@@ -114,9 +124,10 @@ class _ReviewPageState extends State<ReviewPage> {
                     }),
                   ),
 
+
                   const SizedBox(height: 12),
 
-                  // TEXT REVIEW
+
                   const TextField(
                     maxLines: 4,
                     decoration: InputDecoration(
@@ -125,9 +136,11 @@ class _ReviewPageState extends State<ReviewPage> {
                     ),
                   ),
 
+
                   const SizedBox(height: 20),
 
-                  // BUTTON
+
+                  // =================== PERUBAHAN DI SINI ===================
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -138,14 +151,12 @@ class _ReviewPageState extends State<ReviewPage> {
                           ),
                         );
 
-                        Navigator.pushNamedAndRemoveUntil(
+
+                        Navigator.pushReplacementNamed(
                           context,
-                          '/',
-                          (route) => false,
+                          '/sesiSelesai',
                           arguments: {
-                            "hasRecording": true,
-                            "sesiSelesai": true,
-                            "ratingAwal": rating,
+                            "rating": rating,
                           },
                         );
                       },

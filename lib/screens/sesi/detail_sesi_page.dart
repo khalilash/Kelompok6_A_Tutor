@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+
 class DetailSesiPage extends StatefulWidget {
   const DetailSesiPage({super.key});
+
+
+
 
   @override
   State<DetailSesiPage> createState() => _DetailSesiPageState();
 }
+
+
+
 
 class _DetailSesiPageState extends State<DetailSesiPage> {
   bool downloaded = false;
@@ -13,10 +20,16 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
   int rating = 4;
   bool sesiSelesai = false;
 
+
+
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final args = ModalRoute.of(context)?.settings.arguments;
+
+
+
 
     if (args is Map<String, dynamic>) {
       if (args['hasRecording'] == true) hasRecording = true;
@@ -26,10 +39,16 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
     }
   }
 
+
+
+
   void _doDownload() async {
     setState(() => downloaded = true);
     await Navigator.pushNamed(context, '/downloadSuccess');
   }
+
+
+
 
   Widget _buildStar(int index) {
     return IconButton(
@@ -45,6 +64,9 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
       constraints: const BoxConstraints(),
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +85,9 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
         centerTitle: true,
       ),
 
+
+
+
       body: Stack(
         children: [
           // BACKGROUND GAMBAR DI ATAS
@@ -71,10 +96,13 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
             left: 0,
             right: 0,
             height: 220,
-            child: Image.asset("assets/bg.png", fit: BoxFit.cover),
+            child: Image.asset("assets/bgsesi.png", fit: BoxFit.cover),
           ),
 
-          // CONTAINER PUTIH BESAR UNTUK KONTEN
+
+
+
+          //  CONTAINER PUTIH BESAR UNTUK KONTEN
           Positioned.fill(
             top: 85, // tinggi overlap
             child: Container(
@@ -110,7 +138,8 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                           children: [
                             const CircleAvatar(
                               radius: 36,
-                              backgroundImage: AssetImage("assets/tutor.png"),
+                              backgroundImage: AssetImage("assets/tutorsesi.png"),
+                              backgroundColor: Colors.white, // <-- latar putih
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -166,7 +195,13 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                           ],
                         ),
 
+
+
+
                         const SizedBox(height: 12),
+
+
+
 
                         Row(
                           children: [
@@ -195,9 +230,15 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     ),
                   ),
 
+
+
+
                   const SizedBox(height: 18),
 
-                  // MATERI
+
+
+
+                  //  MATERI
                   const Text(
                     "Sesi yang Akan Datang",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -208,6 +249,9 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 4),
+
+
+
 
                   const Text(
                     "4 Agustus 2024",
@@ -220,6 +264,9 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                   ),
                   const SizedBox(height: 4),
 
+
+
+
                   Container(
                     width: double.infinity,
                     height: 3,
@@ -227,19 +274,28 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                   ),
                   const SizedBox(height: 10),
 
+
+
+
                   const Text(
                     "Deskripsi",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 4),
                   const Text(
-                    "OOP Java (Object-Oriented Programming in Java) adalah paradigma pemrograman.",
+                    "OOP Java (Object-Oriented Programming in Java) adalah paradigma pemrograman.",
                     style: TextStyle(color: Colors.black87),
                   ),
 
+
+
+
                   const SizedBox(height: 16),
 
-                  // TOMBOL DOWNLOAD DI LUAR CONTAINER PROFIL
+
+
+
+                  //  TOMBOL DOWNLOAD DI LUAR CONTAINER PROFIL
                   Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -281,7 +337,13 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     ),
                   ),
 
+
+
+
                   const SizedBox(height: 10),
+
+
+
 
                   if (hasRecording)
                     Container(
@@ -327,14 +389,20 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                       ),
                     ),
 
+
+
+
                   const Spacer(),
 
-                  // TOMBOL GABUNG SESI DI BAGIAN PALING BAWAH
+
+
+
+                  //  TOMBOL GABUNG SESI DI BAGIAN PALING BAWAH
                   SizedBox(
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: () => 
+                      onPressed: () =>
                           Navigator.pushNamed(context, '/popupBelumDimulai'),
                       child: const Text('GABUNG SESI'),
                     ),

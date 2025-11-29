@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+
+
+
 class PopupBelumDimulai extends StatelessWidget {
   const PopupBelumDimulai({super.key});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +19,21 @@ class PopupBelumDimulai extends StatelessWidget {
           // ---------- BACKGROUND GAMBAR ----------
           Positioned.fill(
             child: Image.asset(
-              "assets/bg.png", // ganti sesuai nama filemu
+              "assets/bgsesi.png", // ganti sesuai nama filemu
               fit: BoxFit.cover,
             ),
           ),
+
+
+
 
           // ---------- OVERLAY TRANSPARAN ----------
           Container(
             color: Colors.black38,
           ),
+
+
+
 
           // ---------- POPUP ----------
           SafeArea(
@@ -50,6 +62,9 @@ class PopupBelumDimulai extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
 
+
+
+
                     const Text(
                       'Sesi Anda belum dimulai',
                       style: TextStyle(
@@ -58,13 +73,22 @@ class PopupBelumDimulai extends StatelessWidget {
                       ),
                     ),
 
+
+
+
                     const SizedBox(height: 8),
                     const Text(
                       'Gabung sesi sesuai jadwal yang dipilih.',
                       textAlign: TextAlign.center,
                     ),
 
+
+
+
                     const SizedBox(height: 16),
+
+
+
 
                     Row(
                       children: [
@@ -76,14 +100,20 @@ class PopupBelumDimulai extends StatelessWidget {
                           ),
                         ),
 
+
+
+
                         const SizedBox(width: 12),
+
+
+
 
                         // Tombol Gabung
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context); // tutup popup
-                              Navigator.pushNamed(context, '/calling');
+                              Navigator.pushNamed(context, '/callingPage');
                             },
                             child: const Text('Gabung'),
                           ),

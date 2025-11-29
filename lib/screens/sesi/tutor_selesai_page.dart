@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+
+
+
 class TutorSelesaiPage extends StatelessWidget {
   const TutorSelesaiPage({super.key});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +15,7 @@ class TutorSelesaiPage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/bg.png"),
+            image: AssetImage("assets/bgsesi.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -36,10 +42,13 @@ class TutorSelesaiPage extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   const SizedBox(height: 16),
 
-                  /// Hanya tombol SELESAI
+
+
+
+                  ///  Hanya tombol SELESAI
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/review');
+                      Navigator.pushNamed(context, '/reviewPage');
                     },
                     child: const Text("Selesai"),
                   ),

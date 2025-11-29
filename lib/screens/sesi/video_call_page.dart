@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 
+
+
+
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
+
+
+
 
   @override
   State<VideoCallPage> createState() => _VideoCallPageState();
 }
 
+
+
+
 class _VideoCallPageState extends State<VideoCallPage> {
   bool muted = false;
   bool videoOn = true;
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +29,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
       // full screen video
       body: Stack(
         children: [
-          Positioned.fill(child: Image.asset("assets/vc.png", fit: BoxFit.cover)),
+          Positioned.fill(child: Image.asset("assets/vctutor.png", fit: BoxFit.cover)),
           Positioned(
             top: 36,
             right: 16,
@@ -27,7 +39,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.white70),
-                image: const DecorationImage(image: AssetImage("assets/murid.png"), fit: BoxFit.cover),
+                image: const DecorationImage(image: AssetImage("assets/vcmurid.png"), fit: BoxFit.cover),
               ),
             ),
           ),
@@ -68,7 +80,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
                   backgroundColor: Colors.red,
                   onPressed: () {
                     // navigate to finish screen
-                    Navigator.pushReplacementNamed(context, '/tutorSelesai');
+                    Navigator.pushReplacementNamed(context, '/tutorSelesaiPage');
                   },
                   child: const Icon(Icons.call_end, color: Colors.white),
                 ),

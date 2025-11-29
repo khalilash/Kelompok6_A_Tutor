@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+
+
+
 class CallingPage extends StatelessWidget {
   const CallingPage({super.key});
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +23,13 @@ class CallingPage extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Opacity(opacity: 0.65, child: Image.asset("assets/murid.png", fit: BoxFit.cover)),
+              child: Opacity(opacity: 0.65, child: Image.asset("assets/vcmurid.png", fit: BoxFit.cover)),
             ),
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const CircleAvatar(radius: 70, backgroundImage: AssetImage("assets/tutor.png")),
+                  const CircleAvatar(radius: 70, backgroundImage: AssetImage("assets/tutorsesi.png", ), backgroundColor: Colors.white),
                   const SizedBox(height: 16),
                   const Text('Khalila', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
@@ -43,7 +49,7 @@ class CallingPage extends StatelessWidget {
                       FloatingActionButton(
                         heroTag: 'accept',
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/videoCall');
+                          Navigator.pushReplacementNamed(context, '/videoCallPage');
                         },
                         backgroundColor: Colors.green,
                         child: const Icon(Icons.call, color: Colors.white),
