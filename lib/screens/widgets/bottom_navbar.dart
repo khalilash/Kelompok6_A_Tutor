@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../chat/chat_list_screen.dart';
 
 class TutorBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -20,8 +21,11 @@ class TutorBottomNavBar extends StatelessWidget {
 
           // BACKGROUND PUTIH BAWAH
           Container(
-            height: 44,
-            color: Colors.white,
+            height: 50,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+            ),
           ),
 
           // NAVBAR PILL
@@ -46,9 +50,9 @@ class TutorBottomNavBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _navIcon(Icons.home_rounded, 0),
-                  _navIcon(Icons.chat_bubble_rounded, 1),
-                  _navIcon(Icons.person_rounded, 2),
+                  _navIcon(context, Icons.home_rounded, 0),
+                  _navIcon(context, Icons.chat_bubble_rounded, 1),
+                  _navIcon(context, Icons.person_rounded, 2),
                 ],
               ),
             ),
@@ -58,11 +62,23 @@ class TutorBottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _navIcon(IconData icon, int index) {
+  Widget _navIcon(BuildContext context, IconData icon, int index) {
     final bool isActive = index == currentIndex;
 
     return GestureDetector(
-      onTap: () => onTap(index),
+      onTap: () {
+        onTap(index);
+
+        // JIKA TOMBOL CHAT DITEKAN
+        if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const ChatListScreen(),
+            ),
+          );
+        }
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 260),
         curve: Curves.easeOutCubic, // GERAKAN LEMBUT
@@ -81,7 +97,7 @@ class TutorBottomNavBar extends StatelessWidget {
           size: 30, // ICON LEBIH BESAR
           color: isActive
               ? const Color(0xFF6A6FE9)
-              : Colors.white70,
+              : Colors.white,
         ),
       ),
     );

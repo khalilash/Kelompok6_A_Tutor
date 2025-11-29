@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_navbar.dart';
 import 'dart:async';
 import '../widgets/trial_popup.dart';
+import '../search/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,6 +54,32 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final categories = [
+      CategoryData(
+        title: 'Sistem\nBasis Data',
+        tutorCount: 18,
+        dark: const Color(0xFFD65609),
+        light: const Color(0xFFFFA975),
+        textColor: const Color(0xFFD65609),
+        icon: Icons.storage_rounded,
+      ),
+      CategoryData(
+        title: 'Data\nLakehouse',
+        tutorCount: 18,
+        dark: const Color(0xFF566CD8),
+        light: const Color(0xFFBCC6F6),
+        textColor: const Color(0xFF566CD8),
+        icon: Icons.grid_view_rounded,
+      ),
+      CategoryData(
+        title: 'Pemrograman\nDasar',
+        tutorCount: 18,
+        dark: const Color(0xFFFFACB9),
+        light: const Color(0xFFFEB8C3),
+        textColor: const Color(0xFFFF687F),
+        icon: Icons.code_rounded,
+      ),
+    ];
     return Scaffold(
       body: Stack(
         children: [
@@ -106,28 +133,14 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 16),
 
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: const [
-                              PuzzleItem(
-                                title: "Sistem\nBasis Data",
-                                count: "18 Tutor",
-                                color: Color(0xFFF3C49B),
-                                icon: Icons.storage,
-                              ),
-                              PuzzleItem(
-                                title: "Data\nLakehouse",
-                                count: "18 Tutor",
-                                color: Color(0xFFB9C3F8),
-                                icon: Icons.analytics,
-                              ),
-                              PuzzleItem(
-                                title: "Pemrograman\nDasar",
-                                count: "18 Tutor",
-                                color: Color(0xFFF9B8B8),
-                                icon: Icons.code,
-                              ),
-                            ],
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: categories
+                                .map((e) => SizedBox(
+                                      width: 105,
+                                      height: 135,
+                                      child: CategoryCard(data: e),
+                                    ))
+                                .toList(),
                           ),
 
                           const SizedBox(height: 28),
@@ -211,7 +224,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _header() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -235,7 +248,17 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          Icon(Icons.search, color: Colors.white),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const SearchPage(),
+                ),
+              );
+            },
+            child: const Icon(Icons.search, color: Colors.white),
+          ),
         ],
       ),
     );
@@ -390,129 +413,6 @@ class _LihatSemuaBtn extends StatelessWidget {
   }
 }
 
-// ================== PUZZLE ITEM ==================
-class PuzzleItem extends StatelessWidget {
-  final String title, count;
-  final Color color;
-  final IconData icon;
-
-  const PuzzleItem({
-    super.key,
-    required this.title,
-    required this.count,
-    required this.color,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: PuzzleClipper(),
-      child: Container(
-        width: 105,
-        height: 135,
-        color: color,
-        child: Stack(
-          children: [
-            const Positioned(top: -20, left: -10, child: _Blob(size: 60)),
-            const Positioned(bottom: -20, right: -20, child: _Blob(size: 70)),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _IconBadge(icon: icon),
-                  const Spacer(),
-                  Text(title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 12)),
-                  const SizedBox(height: 4),
-                  Text(count, style: const TextStyle(fontSize: 11)),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// ================== PUZZLE CLIPPER ==================
-class PuzzleClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    const double borderRadius = 22;
-    const double notchRadius = 14;
-    final w = size.width;
-    final h = size.height;
-    final centerY = h / 2;
-    final path = Path();
-
-    path.moveTo(borderRadius, 0);
-    path.lineTo(w - borderRadius, 0);
-    path.quadraticBezierTo(w, 0, w, borderRadius);
-
-    path.lineTo(w, centerY - notchRadius);
-    path.arcToPoint(
-      Offset(w, centerY + notchRadius),
-      radius: const Radius.circular(notchRadius),
-      clockwise: false,
-    );
-
-    path.lineTo(w, h - borderRadius);
-    path.quadraticBezierTo(w, h, w - borderRadius, h);
-
-    path.lineTo(borderRadius, h);
-    path.quadraticBezierTo(0, h, 0, h - borderRadius);
-
-    path.lineTo(0, borderRadius);
-    path.quadraticBezierTo(0, 0, borderRadius, 0);
-
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class _Blob extends StatelessWidget {
-  final double size;
-  const _Blob({required this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.25),
-        borderRadius: BorderRadius.circular(size),
-      ),
-    );
-  }
-}
-
-class _IconBadge extends StatelessWidget {
-  final IconData icon;
-  const _IconBadge({required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.85),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Icon(icon, size: 18),
-    );
-  }
-}
-
 // ================== TUTOR CARD MODEL BARU ==================
 class TutorCardFancy extends StatelessWidget {
   final String name, role, price, image;
@@ -652,4 +552,189 @@ class TutorCardFancy extends StatelessWidget {
       ),
     );
   }
+}
+
+// ================= CATEGORY MODEL =================
+class CategoryData {
+  final String title;
+  final int tutorCount;
+  final Color dark;
+  final Color light;
+  final Color textColor;
+  final IconData icon;
+
+  CategoryData({
+    required this.title,
+    required this.tutorCount,
+    required this.dark,
+    required this.light,
+    required this.textColor,
+    required this.icon,
+  });
+}
+
+
+// ================= CATEGORY CARD =================
+class CategoryCard extends StatelessWidget {
+  final CategoryData data;
+
+  const CategoryCard({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: PuzzleClipper(),
+      child: Container(
+        decoration: BoxDecoration(
+          color: data.light,
+        ),
+        child: Stack(
+          children: [
+
+            Positioned(
+              top: -20,
+              left: -10,
+              child: _Blob(color: Colors.white.withOpacity(0.20), size: 70),
+            ),
+            Positioned(
+              top: 30,
+              right: -30,
+              child: _Blob(color: Colors.white.withOpacity(0.18), size: 90),
+            ),
+            Positioned(
+              bottom: -20,
+              left: 10,
+              child: _Blob(color: Colors.white.withOpacity(0.12), size: 80),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _IconBadge(
+                    icon: data.icon,
+                    bg: Colors.white.withOpacity(0.9),
+                    iconColor: data.textColor,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  Text(
+                    data.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: data.textColor,
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  Text(
+                    '${data.tutorCount} Tutor',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: data.textColor.withOpacity(0.75),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+// ================= ICON BADGE =================
+class _IconBadge extends StatelessWidget {
+  final IconData icon;
+  final Color bg;
+  final Color iconColor;
+
+  const _IconBadge({
+    required this.icon,
+    required this.bg,
+    required this.iconColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Icon(icon, size: 18, color: iconColor),
+    );
+  }
+}
+
+
+// ================= DECORATIVE BLOB =================
+class _Blob extends StatelessWidget {
+  final Color color;
+  final double size;
+
+  const _Blob({required this.color, required this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(size),
+      ),
+    );
+  }
+}
+
+
+// ================= PUZZLE CLIPPER =================
+class PuzzleClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    const borderRadius = 20.0;
+    const notchRadius = 16.0;
+
+    final w = size.width;
+    final h = size.height;
+    final centerY = h / 2;
+
+    final path = Path();
+
+    path.moveTo(borderRadius, 0);
+    path.lineTo(w - borderRadius, 0);
+    path.quadraticBezierTo(w, 0, w, borderRadius);
+
+    path.lineTo(w, centerY - notchRadius);
+    path.arcToPoint(
+      Offset(w, centerY + notchRadius),
+      radius: const Radius.circular(notchRadius),
+      clockwise: false,
+    );
+
+    path.lineTo(w, h - borderRadius);
+    path.quadraticBezierTo(w, h, w - borderRadius, h);
+
+    path.lineTo(borderRadius, h);
+    path.quadraticBezierTo(0, h, 0, h - borderRadius);
+
+    path.lineTo(0, borderRadius);
+    path.quadraticBezierTo(0, 0, borderRadius, 0);
+
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(_) => false;
 }
