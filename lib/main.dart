@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'splash_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// HOMEPAGE KAMU
+import 'screens/homepage/homepage.dart';
+
+// FILE TEMAN (LOKASI BARU)
+import 'screens/login-register/welcome_screen.dart';
+import 'screens/chat/chat_list_screen.dart';
+import 'screens/search/search_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +20,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashPage(),
+
+      // THEME APP
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        useMaterial3: false,
+      ),
+
+      // HALAMAN PERTAMA
+      home: const WelcomeScreen(),
+
+      // ROUTES
+      routes: {
+        '/homepage': (context) => const HomePage(),
+        '/search': (context) => const SearchPage(),
+        '/chat': (context) => const ChatListScreen(),
+      },
     );
   }
 }
