@@ -334,7 +334,7 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: () =>
+                      onPressed: () => 
                           Navigator.pushNamed(context, '/popupBelumDimulai'),
                       child: const Text('GABUNG SESI'),
                     ),

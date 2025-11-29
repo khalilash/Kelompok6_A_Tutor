@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tutor/screens/sesi/detail_sesi_page.dart';
 import 'tutor_list_screen.dart';
 
 class SuccessScreen extends StatefulWidget {
@@ -129,7 +130,7 @@ class _SuccessScreenState extends State<SuccessScreen>
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const TutorListScreen()),
+                              builder: (_) => const DetailSesiPage()),
                           (route) => false,
                         );
                       },

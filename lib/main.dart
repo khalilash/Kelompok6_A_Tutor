@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tutor/screens/booking/tutor_list_screen.dart';
+import 'package:tutor/screens/sesi/detail_sesi_page.dart';
 
 // HOMEPAGE KAMU
 import 'screens/homepage/homepage.dart';
@@ -35,6 +37,8 @@ class MyApp extends StatelessWidget {
         '/homepage': (context) => const HomePage(),
         '/search': (context) => const SearchPage(),
         '/chat': (context) => const ChatListScreen(),
+        '/booking': (context) => const TutorListScreen(),
+        '/sesi': (context) => const DetailSesiPage(),
       },
     );
   }

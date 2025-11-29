@@ -32,15 +32,15 @@ class TutorListScreen extends StatelessWidget {
   List<Tutor> get tutors => [
         Tutor(
           name: "Juno",
-          subject: "Geometri Analitik",
+          subject: "Teknologi Berkembang",
           rating: "4.9",
           image: "assets/tutor1.png",
           price: 50000,
           gradient: const [Color(0xFFFF8FA9), Color(0xFFFFC3D0)],
         ),
         Tutor(
-          name: "Lea",
-          subject: "Geometri Analitik",
+          name: "Khalila",
+          subject: "Teknologi Berkembang",
           rating: "4.9",
           image: "assets/tutor2.png",
           price: 50000,

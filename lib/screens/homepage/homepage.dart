@@ -3,6 +3,9 @@ import '../widgets/bottom_navbar.dart';
 import 'dart:async';
 import '../widgets/trial_popup.dart';
 import '../search/search_page.dart';
+import '../booking/tutor_list_screen.dart';
+import '../sesi/detail_sesi_page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -401,17 +404,30 @@ class _LihatSemuaBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-      decoration: BoxDecoration(
-        color: const Color(0xFFB8BEF3),
-        borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TutorListScreen(),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+        decoration: BoxDecoration(
+          color: const Color(0xFFB8BEF3),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: const Text(
+          "Lihat Semua",
+          style: TextStyle(color: Colors.white, fontSize: 12),
+        ),
       ),
-      child: const Text("Lihat Semua",
-          style: TextStyle(color: Colors.white, fontSize: 12)),
     );
   }
 }
+
 
 // ================== TUTOR CARD MODEL BARU ==================
 class TutorCardFancy extends StatelessWidget {
