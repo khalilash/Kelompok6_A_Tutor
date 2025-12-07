@@ -6,7 +6,6 @@ import '../search/search_page.dart';
 import '../booking/tutor_list_screen.dart';
 import '../sesi/detail_sesi_page.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -25,8 +24,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  final PageController _bannerController =
-      PageController(initialPage: 1000);
+  final PageController _bannerController =  PageController(initialPage: 1000, viewportFraction: 0.9);
   int _bannerIndex = 0;
   Timer? _bannerTimer;
 
@@ -90,7 +88,7 @@ class _HomePageState extends State<HomePage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bg.png"),
+                image: AssetImage("assets/background_tutor.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -106,99 +104,105 @@ class _HomePageState extends State<HomePage> {
                 // PANEL PUTIH
                 Expanded(
                   child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(40)),
-                    ),
-                    padding: const EdgeInsets.all(20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
+                        ),
+                        padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.only(bottom: 1),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
 
-                          // ===== KATEGORI =====
-                          Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("Kategori",
+                              // ===== KATEGORI =====
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text("Kategori",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
+                                  _LihatSemuaBtn(),
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              const Text("Pilih Kategori Bidang yang Kamu Inginkan",
                                   style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                              _LihatSemuaBtn(),
+                                      color: Colors.grey, fontSize: 12)),
+                              const SizedBox(height: 16),
+
+                              GridView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 16,
+                                  crossAxisSpacing: 12,
+                                  childAspectRatio: 0.78,
+                                ),
+                                itemCount: categories.length,
+                                itemBuilder: (context, index) {
+                                  return CategoryCard(data: categories[index]);
+                                },
+                              ),
+
+                              const SizedBox(height: 28),
+
+                              // ===== REKOMENDASI =====
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text("Rekomendasi Tutor",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold)),
+                                  _LihatSemuaBtn(),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              const Text("Cari Tutor Yang Cocok Untukmu",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 12)),
+                              const SizedBox(height: 0.1),
+
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: const [
+                                    TutorCardFancy(
+                                      name: "Khalila",
+                                      role: "DMJK",
+                                      price: "Rp50.000 / Sesi",
+                                      image: "assets/tutor1_naura.png",
+                                      bgColor: Color(0xFFF6C49A),
+                                    ),
+                                    SizedBox(width: 14),
+                                    TutorCardFancy(
+                                      name: "Naura",
+                                      role: "Tekber",
+                                      price: "Rp50.000 / Sesi",
+                                      image: "assets/tutor2_naura.png",
+                                      bgColor: Color(0xFFF2B6C0),
+                                    ),
+                                    SizedBox(width: 14),
+                                    TutorCardFancy(
+                                      name: "Juno",
+                                      role: "PPPL",
+                                      price: "Rp1.000 / Sesi",
+                                      image: "assets/tutor3.png",
+                                      bgColor: Color(0xFFBCC6F6),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                          const SizedBox(height: 4),
-                          const Text("Pilih Kategori Bidang yang Kamu Inginkan",
-                              style: TextStyle(
-                                  color: Colors.grey, fontSize: 12)),
-                          const SizedBox(height: 16),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: categories
-                                .map((e) => SizedBox(
-                                      width: 105,
-                                      height: 135,
-                                      child: CategoryCard(data: e),
-                                    ))
-                                .toList(),
-                          ),
-
-                          const SizedBox(height: 28),
-
-                          // ===== REKOMENDASI =====
-                          Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text("Rekomendasi Tutor",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)),
-                              _LihatSemuaBtn(),
-                            ],
-                          ),
-                          const SizedBox(height: 6),
-                          const Text("Cari Tutor Yang Cocok Untukmu",
-                              style: TextStyle(
-                                  color: Colors.grey, fontSize: 12)),
-                          const SizedBox(height: 16),
-
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: const [
-                                TutorCardFancy(
-                                  name: "Khalila",
-                                  role: "DMJK",
-                                  price: "Rp50.000 / Sesi",
-                                  image: "assets/tutor1_naura.png",
-                                  bgColor: Color(0xFFF6C49A),
-                                ),
-                                SizedBox(width: 14),
-                                TutorCardFancy(
-                                  name: "Naura",
-                                  role: "Tekber",
-                                  price: "Rp50.000 / Sesi",
-                                  image: "assets/tutor2_naura.png",
-                                  bgColor: Color(0xFFF2B6C0),
-                                ),
-                                SizedBox(width: 14),
-                                TutorCardFancy(
-                                  name: "Juno",
-                                  role: "PPPL",
-                                  price: "Rp1.000 / Sesi",
-                                  image: "assets/tutor3.png",
-                                  bgColor: Color(0xFFBCC6F6),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      
+                    
                   ),
                 )
               ],
@@ -269,7 +273,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _banner() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.only(top: 0),
       child: Column(
         children: [
           SizedBox(
@@ -296,6 +300,23 @@ class _HomePageState extends State<HomePage> {
                       : index == 1
                           ? "assets/tutor2_naura.png"
                           : "assets/tutor3.png",
+
+                  // ===== WARNA GSM TUTOR =====
+                  index == 0
+                      ? const Color(0xFFFFA975) // OREN MUDA
+                      : index == 1
+                          ? const Color(0xFFFEB8C3) // PINK MUDA
+                          : const Color(0xFFBCC6F6), // UNGU MUDA
+
+                  index == 0
+                      ? const Color(0xFFD65609) // OREN TUA (BLOB)
+                      : index == 1
+                          ? const Color(0xFFFFACB9) // PINK TUA (BLOB)
+                          : const Color(0xFF566CD8), // UNGU TUA (BLOB)
+
+                  index == 2
+                      ? const Color(0xFF566CD8)                 // teks putih untuk ungu
+                      : const Color(0xFFD65609),     // teks oren untuk lainnya
                 );
               },
             ),
@@ -307,12 +328,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _bannerCard(String title, String subtitle, String image) {
+  Widget _bannerCard(
+    String title,
+    String subtitle,
+    String image,
+    Color bgColor,
+    Color blobColor,
+    Color textColor,
+  ) {
     return Container(
       margin: const EdgeInsets.only(right: 6),
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFF7C8A1),
+        color: bgColor,
         borderRadius: BorderRadius.circular(26),
         boxShadow: [
           BoxShadow(
@@ -322,56 +349,97 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFD65609),
-                  )),
-                const SizedBox(height: 6),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    color: Color(0xFFD65609),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color(0xFFD65609),
-                      width: 1.5,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Text(
-                    "Cek Sekarang",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: Color(0xFFD65609),
-                    ),
-                  ),
-                ),
-              ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(26),
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+
+            // BASE
+            Container(color: bgColor),
+
+            // === MOTIF BLOB (STYLE CATEGORY CARD) ===
+
+            // blob kiri atas (putih)
+            Positioned(
+              top: -40,
+              left: -30,
+              child: _Blob(color: Colors.white.withOpacity(0.22), size: 180),
             ),
-          ),
-          Image.asset(
-            image,
-            width: 105,
-            fit: BoxFit.contain,
-          )
-        ],
+
+            // blob kanan (warna utama)
+            Positioned(
+              top: 20,
+              right: -60,
+              child: _Blob(color: blobColor.withOpacity(0.22), size: 240),
+            ),
+
+            // blob bawah kiri (lebih soft)
+            Positioned(
+              bottom: -40,
+              left: 30,
+              child: _Blob(color: blobColor.withOpacity(0.14), size: 200),
+            ),
+
+            // === KONTEN ===
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: textColor,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          subtitle,
+                          style: TextStyle(
+                            color: textColor.withOpacity(0.9),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: textColor,
+                              width: 1.5,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            "Cek Sekarang",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
+                              color: textColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Image.asset(
+                    image,
+                    width: 105,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -445,17 +513,16 @@ class TutorCardFancy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: 150,
-      height: 260, 
+      margin: const EdgeInsets.only(bottom: 20),
       child: Stack(
         clipBehavior: Clip.none, 
         children: [
           Column(
             children: [
-              const SizedBox(height: 55), 
-              Expanded(
-                child: Container(
+              const SizedBox(height: 38), 
+              Container(
                   decoration: BoxDecoration(
                     color: bgColor,
                     borderRadius: BorderRadius.circular(18),
@@ -466,56 +533,53 @@ class TutorCardFancy extends StatelessWidget {
                         height: 120, 
                         decoration: BoxDecoration(
                           color: bgColor,
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(18),
+                          borderRadius: const BorderRadius.vertical(top: Radius.circular(18),
                           ),
                         ),
                       ),
 
                       // box putih info
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(18),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26, 
-                                blurRadius: 8,         
-                                offset: Offset(4, 6),  
-                              ),
-                            ],
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.vertical(
+                            bottom: Radius.circular(18),
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.08), // ✅ lembut
+                              blurRadius: 10,
+                              offset: const Offset(0, 6),
+                            ),
+                          ],
+                        ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween, 
+                            crossAxisAlignment: CrossAxisAlignment.start, 
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    role,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                fontWeight: FontWeight.bold
+                                ),
                               ),
+                              
+                              const SizedBox(height: 2),
+                              
+                              Text(
+                                role,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                ),    
+                              ),
+                              
+                              const SizedBox(height: 6),
+
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -540,18 +604,17 @@ class TutorCardFancy extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ),
                       ),
                     ],
                   ),
-                ),
+                
               )
             ],
           ),
 
           // FOTO ORANG
           Positioned(
-            top: 13, 
+            top: -5, 
             left: 0,
             right: 0,
             child: Center(
