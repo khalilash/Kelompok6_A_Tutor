@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'order_detail_screen.dart';
+import 'select_date_screen.dart';
 import 'tutor_list_screen.dart';
 
 class SelectTimeScreen extends StatefulWidget {
@@ -20,25 +21,19 @@ class SelectTimeScreen extends StatefulWidget {
 class _SelectTimeScreenState extends State<SelectTimeScreen> {
   String? selectedSlot;
 
-  // ==============================
-  //    SLOT DATA + STATUS
-  // ==============================
   final List<Map<String, dynamic>> slots = [
     {"time": "10.00–10.50", "available": true},
     {"time": "11.00–11.50", "available": true},
     {"time": "12.00–12.50", "available": true},
     {"time": "13.00–13.50", "available": true},
-
     {"time": "14.00–14.50", "available": true},
     {"time": "15.00–15.50", "available": true},
     {"time": "16.00–16.50", "available": true},
     {"time": "17.00–17.50", "available": true},
-
     {"time": "18.00–18.50", "available": true},
-    {"time": "19.00–19.50", "available": false}, // merah
+    {"time": "19.00–19.50", "available": false},
     {"time": "20.00–20.50", "available": true},
     {"time": "21.00–21.50", "available": true},
-
     {"time": "22.00–22.50", "available": true},
     {"time": "23.00–23.50", "available": true},
   ];
@@ -46,12 +41,10 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-
-            // ================= HEADER STACK (SAMA 100%) =================
+            // ================= HEADER =================
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -66,6 +59,29 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                   ),
                 ),
 
+                // ---- BACK BUTTON (MINIMALIS, SESUAI GAMBAR) ----
+                Positioned(
+                  top: 20,
+                  left: 16,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 26,
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              SelectDateScreen(tutor: widget.tutor),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                // ---- TUTOR PHOTO ----
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -81,13 +97,13 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
 
             const SizedBox(height: 30),
 
-            // ================= WHITE CARD =================
+            // ================= WHITE CONTENT =================
             Container(
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
@@ -98,12 +114,10 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                   topRight: Radius.circular(36),
                 ),
               ),
-
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                  // ========== TITLE & BADGE ==========
+                  // TITLE
                   Row(
                     children: [
                       Expanded(
@@ -128,7 +142,6 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                           ],
                         ),
                       ),
-
                       Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 4),
@@ -150,7 +163,7 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
 
                   const SizedBox(height: 18),
 
-                  // ========== TAGS ==========
+                  // TAGS
                   Row(
                     children: [
                       _tag("IT"),
@@ -163,7 +176,7 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
 
                   const SizedBox(height: 25),
 
-                  // ========== TITLE "PILIH JAM" ==========
+                  // PILIH JAM TITLE
                   Text(
                     "Pilih Jam",
                     style: GoogleFonts.poppins(
@@ -175,7 +188,7 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
 
                   const SizedBox(height: 14),
 
-                  // ========== INDIKATOR TERSEDIA / TIDAK ==========
+                  // INDIKATOR AVAILABLE
                   Row(
                     children: [
                       Container(
@@ -190,7 +203,6 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                       Text("Tersedia",
                           style: GoogleFonts.poppins(fontSize: 13)),
                       const SizedBox(width: 20),
-
                       Container(
                         width: 12,
                         height: 12,
@@ -207,7 +219,6 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
 
                   const SizedBox(height: 20),
 
-                  // ========== SLOT WRAP ==========
                   Wrap(
                     spacing: 10,
                     runSpacing: 10,
@@ -216,85 +227,61 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
 
                   const SizedBox(height: 40),
 
-                  // ========== BUTTON ==========
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: selectedSlot == null
-                              ? null
-                              : () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => OrderDetailScreen(
-                                        tutor: widget.tutor,
-                                        date: widget.date,
-                                        timeSlot: selectedSlot!,
-                                      ),
-                                    ),
-                                  );
-                                },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            backgroundColor: const Color(0xFF2D3246),
-                            disabledBackgroundColor: Colors.grey.shade400,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                          ),
-                          child: Text(
-                            "KONFIRMASI",
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                  // BUTTON KONFIRMASI
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: selectedSlot == null
+                          ? null
+                          : () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => OrderDetailScreen(
+                                    tutor: widget.tutor,
+                                    date: widget.date,
+                                    timeSlot: selectedSlot!,
+                                  ),
+                                ),
+                              );
+                            },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: const Color(0xFF2D3246),
+                        disabledBackgroundColor: Colors.grey.shade400,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-
-                      const Positioned(
-                        right: -6,
-                        bottom: -6,
-                        child: CircleAvatar(
-                          radius: 8,
-                          backgroundColor: Color(0xFF6FA8FF),
+                      child: Text(
+                        "KONFIRMASI",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ],
+                    ),
                   ),
-
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
 
-  // ======================== SLOT UI BUILDER ========================
+  // SLOT BUILDER
   Widget _buildSlot(Map<String, dynamic> slot) {
     final String time = slot["time"];
     final bool available = slot["available"];
     final bool isSelected = selectedSlot == time;
 
-    Color bgColor;
-
-    if (!available) {
-      bgColor = const Color(0xFFFFD6D9); // merah soft
-    } else if (isSelected) {
-      bgColor = const Color(0xFF1E2340); // dark
-    } else {
-      bgColor = const Color(0xFFE0E7FF); // biru soft
-    }
+    Color bgColor =
+        !available ? const Color(0xFFFFD6D9) : (isSelected ? const Color(0xFF1E2340) : const Color(0xFFE0E7FF));
 
     return GestureDetector(
-      onTap: available
-          ? () => setState(() => selectedSlot = time)
-          : null, // merah tidak bisa dipilih
+      onTap: available ? () => setState(() => selectedSlot = time) : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
@@ -315,7 +302,7 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
     );
   }
 
-  // ======================== TAG CMPONENT ========================
+  // TAG COMPONENT
   Widget _tag(String txt) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),

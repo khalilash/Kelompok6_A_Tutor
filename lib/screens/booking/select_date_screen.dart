@@ -25,12 +25,12 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
         child: Column(
           children: [
 
-            // ================= HEADER STACK =================
+            // ================= HEADER =================
             Stack(
               clipBehavior: Clip.none,
               children: [
 
-                // ------------- BACKGROUND IMAGE -------------
+                // ---------- BACKGROUND IMAGE ----------
                 Container(
                   width: double.infinity,
                   height: 200,
@@ -42,7 +42,28 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                   ),
                 ),
 
-                // ------------- FLOATING TUTOR PHOTO -------------
+                // ---------- BACK BUTTON (MINIMALIS) ----------
+                Positioned(
+                  top: 20,
+                  left: 16,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 26,
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const TutorListScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
+                // ---------- FLOATING PHOTO ----------
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -54,15 +75,15 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                         widget.tutor.image,
                         width: 180,
                         height: 220,
-                        fit: BoxFit.cover, // tidak crop wajah
+                        fit: BoxFit.cover, 
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
 
-            const SizedBox(height: 30), // ruang untuk foto floating
+            const SizedBox(height: 30),
 
             // ================= WHITE CARD =================
             Container(
@@ -80,7 +101,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
 
-                  // ---------------- TITLE ----------------
+                  // ---------- TITLE ----------
                   Row(
                     children: [
                       Expanded(
@@ -106,12 +127,10 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                         ),
                       ),
 
-                      // ---------------- ONLINE BADGE ----------------
+                      // ONLINE BADGE
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 4,
-                        ),
+                            horizontal: 12, vertical: 4),
                         decoration: BoxDecoration(
                           color: const Color(0xFFC8F5D3),
                           borderRadius: BorderRadius.circular(12),
@@ -130,7 +149,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
                   const SizedBox(height: 18),
 
-                  // ---------------- TAGS ----------------
+                  // ---------- TAGS ----------
                   Row(
                     children: [
                       _tag("IT"),
@@ -143,7 +162,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
                   const SizedBox(height: 25),
 
-                  // ---------------- MONTH TEXT ----------------
+                  // ---------- MONTH TITLE ----------
                   Text(
                     "August, 2025",
                     style: GoogleFonts.poppins(
@@ -155,7 +174,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
                   const SizedBox(height: 8),
 
-                  // ---------------- CALENDAR ----------------
+                  // ---------- CALENDAR ----------
                   TableCalendar(
                     firstDay: DateTime.utc(2020),
                     lastDay: DateTime.utc(2030),
@@ -189,55 +208,41 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
 
                   const SizedBox(height: 25),
 
-                  // ---------------- CONFIRM BUTTON ----------------
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _selectedDay == null
-                              ? null
-                              : () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => SelectTimeScreen(
-                                        tutor: widget.tutor,
-                                        date: _selectedDay!,
-                                      ),
-                                    ),
-                                  );
-                                },
-                          style: ElevatedButton.styleFrom(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 16),
-                            backgroundColor: const Color(0xFF2D3246),
-                            disabledBackgroundColor: Colors.grey.shade400,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                          ),
-                          child: Text(
-                            "KONFIRMASI",
-                            style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                  // ---------- BUTTON ----------
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _selectedDay == null
+                          ? null
+                          : () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SelectTimeScreen(
+                                    tutor: widget.tutor,
+                                    date: _selectedDay!,
+                                  ),
+                                ),
+                              );
+                            },
+                      style: ElevatedButton.styleFrom(
+                        padding:
+                            const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: const Color(0xFF2D3246),
+                        disabledBackgroundColor: Colors.grey.shade400,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-
-                      const Positioned(
-                        right: -6,
-                        bottom: -6,
-                        child: CircleAvatar(
-                          radius: 8,
-                          backgroundColor: Color(0xFF6FA8FF),
+                      child: Text(
+                        "KONFIRMASI",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -247,10 +252,11 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
     );
   }
 
-  // TA
+  // TAG UI
   Widget _tag(String txt) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding:
+          const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: const Color(0xFFE8EDFF),
         borderRadius: BorderRadius.circular(14),
