@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'select_date_screen.dart';
+import '../homepage/homepage.dart';
+
 
 // =========================
 // MODEL TUTOR
@@ -56,21 +58,45 @@ class TutorListScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              const SizedBox(height: 25),
+              const SizedBox(height: 12),
 
-              // HEADER
-              Text(
-                "Tutor",
-                style: GoogleFonts.poppins(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              // ==========================
+              // HEADER + BACK BUTTON
+              // ==========================
+              Row(
+                children: [
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const HomePage()),
+                      );
+                    },
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "Tutor",
+                        style: GoogleFonts.poppins(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48), // menjaga agar title tetap center
+                ],
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
 
+              // ==========================
               // CONTENT
+              // ==========================
               Expanded(
                 child: Container(
                   decoration: const BoxDecoration(
@@ -119,7 +145,6 @@ class TutorListScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(22),
         ),
 
-        // pakai Stack supaya tombol bisa di bawah kanan
         child: Stack(
           children: [
             Row(
@@ -145,7 +170,7 @@ class TutorListScreen extends StatelessWidget {
 
                 const SizedBox(width: 12),
 
-                // TEXT
+                // TEXT INFO
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,7 +219,7 @@ class TutorListScreen extends StatelessWidget {
               ],
             ),
 
-            // TOMBOL PESAN SESI (KANAN BAWAH)
+            // TOMBOL PESAN SESI
             Positioned(
               right: 0,
               bottom: 0,
@@ -202,7 +227,7 @@ class TutorListScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1E2340), // navy
+                  color: const Color(0xFF1E2340),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: Text(
@@ -222,7 +247,7 @@ class TutorListScreen extends StatelessWidget {
   }
 
   // ==========================
-  // BACKGROUND GRADIEN
+  // BACKGROUND GRADIENT
   // ==========================
   BoxDecoration _background() {
     return const BoxDecoration(
