@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../widgets/bottom_navbar.dart';
+import '../login-register/login_screen.dart'; // <-- PATH LOGIN KAMU
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -10,9 +12,14 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+
+      bottomNavigationBar: TutorBottomNavBar(
+        currentIndex: 2,
+        onTap: (i) {},
+      ),
+
       body: Stack(
         children: [
-          // BACKGROUND
           Positioned.fill(
             child: Image.asset(
               'assets/background tutor.png',
@@ -20,13 +27,11 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
 
-          // KONTEN
           SafeArea(
             child: Column(
               children: [
                 const SizedBox(height: 20),
 
-                // TITLE
                 const Text(
                   'Profile',
                   style: TextStyle(
@@ -60,7 +65,7 @@ class ProfilePage extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: primary,
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 color: Colors.black26,
                                 blurRadius: 6,
@@ -89,7 +94,9 @@ class ProfilePage extends StatelessWidget {
                     color: textDark,
                   ),
                 ),
+
                 const SizedBox(height: 4),
+
                 const Text(
                   'Sahahahahahaha@gmail.com',
                   style: TextStyle(fontSize: 14, color: Colors.black54),
@@ -97,7 +104,6 @@ class ProfilePage extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                // LIST MENU
                 Expanded(
                   child: Container(
                     width: double.infinity,
@@ -109,7 +115,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                     child: ListView(
-                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 40),
+                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 80),
                       children: const [
                         _ProfileMenuItem(
                           icon: Icons.person_outline_rounded,
@@ -157,9 +163,6 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-/// =========================
-///       ITEM MENU
-/// =========================
 class _ProfileMenuItem extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -208,9 +211,6 @@ class _DividerLine extends StatelessWidget {
   }
 }
 
-/// =========================
-///         LOGOUT
-/// =========================
 class _LogoutItem extends StatelessWidget {
   const _LogoutItem();
 
@@ -218,19 +218,56 @@ class _LogoutItem extends StatelessWidget {
   Widget build(BuildContext context) {
     const logoutColor = Color(0xFFFF6B81);
 
-    return Row(
-      children: const [
-        Icon(Icons.logout_rounded, color: logoutColor),
-        SizedBox(width: 16),
-        Text(
-          'Logout',
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: logoutColor,
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              title: const Text("Logout"),
+              content: const Text("Apakah kamu yakin ingin logout?"),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Batal"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text(
+                    "Logout",
+                    style: TextStyle(color: logoutColor),
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Row(
+        children: const [
+          Icon(Icons.logout_rounded, color: logoutColor),
+          SizedBox(width: 16),
+          Text(
+            'Logout',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: logoutColor,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

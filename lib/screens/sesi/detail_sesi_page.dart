@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 
-
 class DetailSesiPage extends StatefulWidget {
   const DetailSesiPage({super.key});
-
-
-
 
   @override
   State<DetailSesiPage> createState() => _DetailSesiPageState();
 }
-
-
-
 
 class _DetailSesiPageState extends State<DetailSesiPage> {
   bool downloaded = false;
@@ -20,16 +13,10 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
   int rating = 4;
   bool sesiSelesai = false;
 
-
-
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final args = ModalRoute.of(context)?.settings.arguments;
-
-
-
 
     if (args is Map<String, dynamic>) {
       if (args['hasRecording'] == true) hasRecording = true;
@@ -39,16 +26,10 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
     }
   }
 
-
-
-
   void _doDownload() async {
     setState(() => downloaded = true);
     await Navigator.pushNamed(context, '/downloadSuccess');
   }
-
-
-
 
   Widget _buildStar(int index) {
     return IconButton(
@@ -64,9 +45,6 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
       constraints: const BoxConstraints(),
     );
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +63,6 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
         centerTitle: true,
       ),
 
-
-
-
       body: Stack(
         children: [
           // BACKGROUND GAMBAR DI ATAS
@@ -98,9 +73,6 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
             height: 220,
             child: Image.asset("assets/bgsesi.png", fit: BoxFit.cover),
           ),
-
-
-
 
           //  CONTAINER PUTIH BESAR UNTUK KONTEN
           Positioned.fill(
@@ -138,7 +110,9 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                           children: [
                             const CircleAvatar(
                               radius: 36,
-                              backgroundImage: AssetImage("assets/tutorsesi.png"),
+                              backgroundImage: AssetImage(
+                                "assets/tutorsesi.png",
+                              ),
                               backgroundColor: Colors.white, // <-- latar putih
                             ),
                             const SizedBox(width: 12),
@@ -195,13 +169,7 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                           ],
                         ),
 
-
-
-
                         const SizedBox(height: 12),
-
-
-
 
                         Row(
                           children: [
@@ -230,13 +198,7 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     ),
                   ),
 
-
-
-
                   const SizedBox(height: 18),
-
-
-
 
                   //  MATERI
                   const Text(
@@ -250,9 +212,6 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                   ),
                   const SizedBox(height: 4),
 
-
-
-
                   const Text(
                     "4 Agustus 2024",
                     style: TextStyle(color: Colors.black87),
@@ -264,18 +223,17 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                   ),
                   const SizedBox(height: 4),
 
-
-
-
                   Container(
                     width: double.infinity,
                     height: 3,
-                    color: const Color.fromARGB(255, 183, 212, 235), // Warna garis
+                    color: const Color.fromARGB(
+                      255,
+                      183,
+                      212,
+                      235,
+                    ), // Warna garis
                   ),
                   const SizedBox(height: 10),
-
-
-
 
                   const Text(
                     "Deskripsi",
@@ -287,13 +245,7 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     style: TextStyle(color: Colors.black87),
                   ),
 
-
-
-
                   const SizedBox(height: 16),
-
-
-
 
                   //  TOMBOL DOWNLOAD DI LUAR CONTAINER PROFIL
                   Container(
@@ -337,13 +289,7 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                     ),
                   ),
 
-
-
-
                   const SizedBox(height: 10),
-
-
-
 
                   if (hasRecording)
                     Container(
@@ -389,24 +335,27 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
                       ),
                     ),
 
-
-
-
                   const Spacer(),
-
-
-
 
                   //  TOMBOL GABUNG SESI DI BAGIAN PALING BAWAH
                   SizedBox(
                     width: double.infinity,
                     height: 52,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFBCC6F6),
+                        foregroundColor: Colors.white, // warna teks
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 3,
+                      ),
                       onPressed: () =>
                           Navigator.pushNamed(context, '/popupBelumDimulai'),
                       child: const Text('GABUNG SESI'),
                     ),
                   ),
+
                   const SizedBox(height: 10),
                 ],
               ),

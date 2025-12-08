@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../widgets/bottom_navbar.dart';
-import 'dart:async';
 import '../widgets/trial_popup.dart';
 import '../search/search_page.dart';
 import '../booking/tutor_list_screen.dart';
@@ -24,27 +24,28 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  final PageController _bannerController =  PageController(initialPage: 1000, viewportFraction: 0.9);
+  final PageController _bannerController =
+      PageController(initialPage: 1000, viewportFraction: 0.9);
   int _bannerIndex = 0;
   Timer? _bannerTimer;
 
   @override
   void initState() {
-  super.initState();
+    super.initState();
 
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    _showTrialPopup();
-  });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showTrialPopup();
+    });
 
-  _bannerTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    if (_bannerController.hasClients) {
-      _bannerController.nextPage(
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeInOut,
-      );
-    }
-  });
-}
+    _bannerTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_bannerController.hasClients) {
+        _bannerController.nextPage(
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -81,6 +82,7 @@ class _HomePageState extends State<HomePage> {
         icon: Icons.code_rounded,
       ),
     ];
+
     return Scaffold(
       body: Stack(
         children: [
@@ -104,105 +106,118 @@ class _HomePageState extends State<HomePage> {
                 // PANEL PUTIH
                 Expanded(
                   child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
-                        ),
-                        padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.only(bottom: 1),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              // ===== KATEGORI =====
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text("Kategori",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  _LihatSemuaBtn(),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              const Text("Pilih Kategori Bidang yang Kamu Inginkan",
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(40)),
+                    ),
+                    padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // ===== KATEGORI =====
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text("Kategori",
                                   style: TextStyle(
-                                      color: Colors.grey, fontSize: 12)),
-                              const SizedBox(height: 16),
-
-                              GridView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 16,
-                                  crossAxisSpacing: 12,
-                                  childAspectRatio: 0.78,
-                                ),
-                                itemCount: categories.length,
-                                itemBuilder: (context, index) {
-                                  return CategoryCard(data: categories[index]);
-                                },
-                              ),
-
-                              const SizedBox(height: 28),
-
-                              // ===== REKOMENDASI =====
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text("Rekomendasi Tutor",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold)),
-                                  _LihatSemuaBtn(),
-                                ],
-                              ),
-                              const SizedBox(height: 6),
-                              const Text("Cari Tutor Yang Cocok Untukmu",
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 12)),
-                              const SizedBox(height: 0.1),
-
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: const [
-                                    TutorCardFancy(
-                                      name: "Khalila",
-                                      role: "DMJK",
-                                      price: "Rp50.000 / Sesi",
-                                      image: "assets/tutor1_naura.png",
-                                      bgColor: Color(0xFFF6C49A),
-                                    ),
-                                    SizedBox(width: 14),
-                                    TutorCardFancy(
-                                      name: "Naura",
-                                      role: "Tekber",
-                                      price: "Rp50.000 / Sesi",
-                                      image: "assets/tutor2_naura.png",
-                                      bgColor: Color(0xFFF2B6C0),
-                                    ),
-                                    SizedBox(width: 14),
-                                    TutorCardFancy(
-                                      name: "Juno",
-                                      role: "PPPL",
-                                      price: "Rp1.000 / Sesi",
-                                      image: "assets/tutor3.png",
-                                      bgColor: Color(0xFFBCC6F6),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                              _LihatSemuaBtn(),
                             ],
                           ),
-                        ),
-                      
-                    
+                          const SizedBox(height: 4),
+                          const Text(
+                            "Pilih Kategori Bidang yang Kamu Inginkan",
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                          const SizedBox(height: 16),
+
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics:
+                                const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 12,
+                              childAspectRatio: 0.78,
+                            ),
+                            itemCount: categories.length,
+                            itemBuilder: (context, index) {
+                              return CategoryCard(data: categories[index]);
+                            },
+                          ),
+
+                          const SizedBox(height: 28),
+
+                          // ===== REKOMENDASI =====
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text("Rekomendasi Tutor",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                              _LihatSemuaBtn(),
+                            ],
+                          ),
+                          const SizedBox(height: 6),
+                          const Text(
+                            "Cari Tutor Yang Cocok Untukmu",
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                          const SizedBox(height: 10),
+
+                          // ROW REKOMENDASI
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: const [
+                                TutorCardFancy(
+                                  name: "Khalila",
+                                  role: "DMJK",
+                                  price: "Rp50.000 / Sesi",
+                                  image: "assets/tutor1_naura.png",
+                                  bgColor: Color(0xFFF6C49A),
+                                ),
+                                SizedBox(width: 14),
+                                TutorCardFancy(
+                                  name: "Naura",
+                                  role: "Tekber",
+                                  price: "Rp50.000 / Sesi",
+                                  image: "assets/tutor2_naura.png",
+                                  bgColor: Color(0xFFF2B6C0),
+                                ),
+                                SizedBox(width: 14),
+                                TutorCardFancy(
+                                  name: "Juno",
+                                  role: "PPPL",
+                                  price: "Rp1.000 / Sesi",
+                                  image: "assets/tutor3.png",
+                                  bgColor: Color(0xFFBCC6F6),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // 🌟 KARTU BESAR BARU
+                          const SizedBox(height: 16),
+
+                          const BigTutorCard(
+                            name: "Khalila",
+                            subject: "Dasar Pemrograman",
+                            rating: 4.9,
+                            price: "Rp50.000",
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 )
               ],
@@ -211,18 +226,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
 
-      // bottomNavigationBar: TutorBottomNavBar(
-      //   currentIndex: navIndex,
-      //   onTap: (index) {
-      //     setState(() => navIndex = index);
-
-      //     if (index == 1) {
-      //       Navigator.pushNamed(context, '/chat');
-      //     } else if (index == 2) {
-      //       Navigator.pushNamed(context, '/profile');
-      //     }
-      //   },
-      // ),
+      // NAVBAR
       bottomNavigationBar: TutorBottomNavBar(
         currentIndex: navIndex,
         onTap: (i) => setState(() => navIndex = i),
@@ -232,20 +236,20 @@ class _HomePageState extends State<HomePage> {
 
   Widget _header() {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 20,
                 backgroundImage: AssetImage("assets/profile.jpg"),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   Text("Hello,", style: TextStyle(color: Colors.white70)),
                   Text("Sasha",
                       style: TextStyle(
@@ -259,13 +263,11 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const SearchPage(),
-                ),
+                MaterialPageRoute(builder: (_) => const SearchPage()),
               );
             },
             child: const Icon(Icons.search, color: Colors.white),
-          ),
+          )
         ],
       ),
     );
@@ -280,7 +282,8 @@ class _HomePageState extends State<HomePage> {
             height: 140,
             child: PageView.builder(
               controller: _bannerController,
-              onPageChanged: (i) => setState(() => _bannerIndex = i % 3),
+              onPageChanged: (i) =>
+                  setState(() => _bannerIndex = i % 3),
               itemBuilder: (_, i) {
                 final index = i % 3;
 
@@ -300,23 +303,19 @@ class _HomePageState extends State<HomePage> {
                       : index == 1
                           ? "assets/tutor2_naura.png"
                           : "assets/tutor3.png",
-
-                  // ===== WARNA GSM TUTOR =====
                   index == 0
-                      ? const Color(0xFFFFA975) // OREN MUDA
+                      ? const Color(0xFFFFA975)
                       : index == 1
-                          ? const Color(0xFFFEB8C3) // PINK MUDA
-                          : const Color(0xFFBCC6F6), // UNGU MUDA
-
+                          ? const Color(0xFFFEB8C3)
+                          : const Color(0xFFBCC6F6),
                   index == 0
-                      ? const Color(0xFFD65609) // OREN TUA (BLOB)
+                      ? const Color(0xFFD65609)
                       : index == 1
-                          ? const Color(0xFFFFACB9) // PINK TUA (BLOB)
-                          : const Color(0xFF566CD8), // UNGU TUA (BLOB)
-
+                          ? const Color(0xFFFFACB9)
+                          : const Color(0xFF566CD8),
                   index == 2
-                      ? const Color(0xFF566CD8)                 // teks putih untuk ungu
-                      : const Color(0xFFD65609),     // teks oren untuk lainnya
+                      ? const Color(0xFF566CD8)
+                      : const Color(0xFFD65609),
                 );
               },
             ),
@@ -328,18 +327,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _bannerCard(
-    String title,
-    String subtitle,
-    String image,
-    Color bgColor,
-    Color blobColor,
-    Color textColor,
-  ) {
+  Widget _bannerCard(String title, String subtitle, String image, Color bg,
+      Color blob, Color textColor) {
     return Container(
       margin: const EdgeInsets.only(right: 6),
       decoration: BoxDecoration(
-        color: bgColor,
+        color: bg,
         borderRadius: BorderRadius.circular(26),
         boxShadow: [
           BoxShadow(
@@ -354,34 +347,24 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           fit: StackFit.expand,
           children: [
+            Container(color: bg),
 
-            // BASE
-            Container(color: bgColor),
-
-            // === MOTIF BLOB (STYLE CATEGORY CARD) ===
-
-            // blob kiri atas (putih)
             Positioned(
               top: -40,
               left: -30,
               child: _Blob(color: Colors.white.withOpacity(0.22), size: 180),
             ),
-
-            // blob kanan (warna utama)
             Positioned(
               top: 20,
               right: -60,
-              child: _Blob(color: blobColor.withOpacity(0.22), size: 240),
+              child: _Blob(color: blob.withOpacity(0.22), size: 240),
             ),
-
-            // blob bawah kiri (lebih soft)
             Positioned(
               bottom: -40,
               left: 30,
-              child: _Blob(color: blobColor.withOpacity(0.14), size: 200),
+              child: _Blob(color: blob.withOpacity(0.14), size: 200),
             ),
 
-            // === KONTEN ===
             Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -410,31 +393,24 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 5),
                           decoration: BoxDecoration(
-                            border: Border.all(
-                              color: textColor,
-                              width: 1.5,
-                            ),
+                            border: Border.all(color: textColor, width: 1.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
                             "Cek Sekarang",
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
-                              color: textColor,
-                            ),
+                                color: textColor,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Image.asset(
-                    image,
-                    width: 105,
-                    fit: BoxFit.contain,
-                  ),
+                  Image.asset(image, width: 105, fit: BoxFit.contain),
                 ],
               ),
             ),
@@ -455,9 +431,8 @@ class _HomePageState extends State<HomePage> {
           height: 6,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-            color: _bannerIndex == i
-                ? const Color(0xFF5C65D6)
-                : Colors.white70,
+            color:
+                _bannerIndex == i ? const Color(0xFF5C65D6) : Colors.white70,
             borderRadius: BorderRadius.circular(4),
           ),
         ),
@@ -466,7 +441,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ================== BUTTON ==================
+// ================== BUTTON "LIHAT SEMUA" ==================
 class _LihatSemuaBtn extends StatelessWidget {
   const _LihatSemuaBtn();
 
@@ -476,9 +451,7 @@ class _LihatSemuaBtn extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => const TutorListScreen(),
-          ),
+          MaterialPageRoute(builder: (_) => const TutorListScreen()),
         );
       },
       child: Container(
@@ -496,8 +469,136 @@ class _LihatSemuaBtn extends StatelessWidget {
   }
 }
 
+// ================== REKOMENDASI CARD BESAR ==================
+class BigTutorCard extends StatelessWidget {
+  final String name;
+  final String subject;
+  final double rating;
+  final String price;
 
-// ================== TUTOR CARD MODEL BARU ==================
+  const BigTutorCard({
+    super.key,
+    required this.name,
+    required this.subject,
+    required this.rating,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFC8A2),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: -20,
+            top: 30,
+            child: Container(
+              width: 160,
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.22),
+                borderRadius: BorderRadius.circular(120),
+              ),
+            ),
+          ),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFB24A00),
+                ),
+              ),
+              const SizedBox(height: 4),
+
+              Text(
+                subject,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Color(0xFFB24A00),
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              Row(
+                children: [
+                  Text(
+                    rating.toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  const Icon(Icons.star, color: Colors.yellow, size: 16),
+                ],
+              ),
+
+              const SizedBox(height: 12),
+
+              Text(
+                price,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const DetailSesiPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 22, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFAEC2FF),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: const Text(
+                      "Detail Sesi",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ================= OTHER WIDGETS BELOW =================
+// (TutorCardFancy, CategoryCard, Blob, etc. — biarkan tetap seperti file kamu)
+
 class TutorCardFancy extends StatelessWidget {
   final String name, role, price, image;
   final Color bgColor;
@@ -517,117 +618,98 @@ class TutorCardFancy extends StatelessWidget {
       width: 150,
       margin: const EdgeInsets.only(bottom: 20),
       child: Stack(
-        clipBehavior: Clip.none, 
+        clipBehavior: Clip.none,
         children: [
           Column(
             children: [
-              const SizedBox(height: 38), 
+              const SizedBox(height: 38),
               Container(
-                  decoration: BoxDecoration(
-                    color: bgColor,
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 120, 
-                        decoration: BoxDecoration(
-                          color: bgColor,
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(18),
-                          ),
-                        ),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: HalfCircleBlob(
-                            color: Colors.white.withOpacity(0.25), // blob lembut
-                          ),
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 120,
+                      decoration: BoxDecoration(
+                        color: bgColor,
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(18),
                         ),
                       ),
-
-                      // box putih info
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(18),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.08), // ✅ lembut
-                              blurRadius: 10,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: HalfCircleBlob(
+                          color: Colors.white.withOpacity(0.25),
                         ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start, 
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(18),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.08),
+                            blurRadius: 10,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 2),
+                          Text(role,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 12, color: Colors.grey)),
+                          const SizedBox(height: 6),
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                fontWeight: FontWeight.bold
-                                ),
-                              ),
-                              
-                              const SizedBox(height: 2),
-                              
-                              Text(
-                                role,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                ),    
-                              ),
-                              
-                              const SizedBox(height: 6),
-
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              Text(price,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12)),
+                              const Row(
                                 children: [
-                                  Text(
-                                    price,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                  const Row(
-                                    children: [
-                                      Icon(Icons.star,
-                                          size: 14, color: Colors.amber),
-                                      SizedBox(width: 4),
-                                      Text("4.9",
-                                          style:
-                                              TextStyle(fontSize: 12)),
-                                    ],
-                                  )
+                                  Icon(Icons.star,
+                                      size: 14, color: Colors.amber),
+                                  SizedBox(width: 4),
+                                  Text("4.9",
+                                      style: TextStyle(fontSize: 12)),
                                 ],
                               ),
                             ],
                           ),
+                        ],
                       ),
-                    ],
-                  ),
-                
+                    ),
+                  ],
+                ),
               )
             ],
           ),
-
-          // FOTO ORANG
           Positioned(
-            top: -5, 
+            top: -5,
             left: 0,
             right: 0,
             child: Center(
               child: Image.asset(
                 image,
-                height: 175, 
+                height: 175,
                 fit: BoxFit.contain,
                 errorBuilder: (context, e, _) =>
                     const Icon(Icons.person, size: 120),
@@ -640,7 +722,6 @@ class TutorCardFancy extends StatelessWidget {
   }
 }
 
-// ================= CATEGORY MODEL =================
 class CategoryData {
   final String title;
   final int tutorCount;
@@ -659,8 +740,6 @@ class CategoryData {
   });
 }
 
-
-// ================= CATEGORY CARD =================
 class CategoryCard extends StatelessWidget {
   final CategoryData data;
 
@@ -671,12 +750,9 @@ class CategoryCard extends StatelessWidget {
     return ClipPath(
       clipper: PuzzleClipper(),
       child: Container(
-        decoration: BoxDecoration(
-          color: data.light,
-        ),
+        decoration: BoxDecoration(color: data.light),
         child: Stack(
           children: [
-
             Positioned(
               top: -20,
               left: -10,
@@ -692,7 +768,6 @@ class CategoryCard extends StatelessWidget {
               left: 10,
               child: _Blob(color: Colors.white.withOpacity(0.12), size: 80),
             ),
-
             Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
@@ -703,9 +778,7 @@ class CategoryCard extends StatelessWidget {
                     bg: Colors.white.withOpacity(0.9),
                     iconColor: data.textColor,
                   ),
-
                   const SizedBox(height: 16),
-
                   Text(
                     data.title,
                     maxLines: 2,
@@ -716,9 +789,7 @@ class CategoryCard extends StatelessWidget {
                       color: data.textColor,
                     ),
                   ),
-
                   const SizedBox(height: 6),
-
                   Text(
                     '${data.tutorCount} Tutor',
                     style: TextStyle(
@@ -736,8 +807,6 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
-
-// ================= ICON BADGE =================
 class _IconBadge extends StatelessWidget {
   final IconData icon;
   final Color bg;
@@ -762,8 +831,6 @@ class _IconBadge extends StatelessWidget {
   }
 }
 
-
-// ================= DECORATIVE BLOB =================
 class _Blob extends StatelessWidget {
   final Color color;
   final double size;
@@ -795,15 +862,13 @@ class HalfCircleBlob extends StatelessWidget {
       height: 70,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(300),
-        ),
+        borderRadius:
+            const BorderRadius.vertical(top: Radius.circular(300)),
       ),
     );
   }
 }
 
-// ================= PUZZLE CLIPPER =================
 class PuzzleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

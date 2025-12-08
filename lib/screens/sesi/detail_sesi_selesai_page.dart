@@ -296,7 +296,7 @@ class _DetailSesiSelesaiPageState extends State<DetailSesiSelesaiPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1E2340),
                       ),
-                      child: const Text("LIHAT REVIEW"),
+                      child: const Text("REVIEW"),
                     ),
                   ),
 
