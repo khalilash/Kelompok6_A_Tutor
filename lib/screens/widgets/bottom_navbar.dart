@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../chat/chat_list_screen.dart';
+import '../homepage/homepage.dart';
+import '../profilepage/profile_page.dart';
 
 class TutorBottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
-  final Function(int) onTap;
 
   const TutorBottomNavBar({
     super.key,
@@ -68,39 +69,41 @@ class TutorBottomNavBar extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // kalau tab yang sama, nggak ngapa-ngapain
         if (index == currentIndex) return;
 
-        // kasih tahu parent dulu
         onTap(index);
 
-        // LOGIKA NAVIGASI DASAR
-        if (index == 1) {
-          // pindah ke daftar chat
-        onTap(index);
+        // ========== NAVIGASI ==========
+        if (index == 0) {
+          // HOME
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const HomePage()),
+            (route) => false,
+          );
 
-        // JIKA TOMBOL CHAT DITEKAN
-        if (index == 1) {
+        } else if (index == 1) {
+          // CHAT
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => const ChatListScreen(),
             ),
           );
-        } else if (index == 0) {
-          // balik ke halaman paling awal (Home)
-          Navigator.popUntil(context, (route) => route.isFirst);
+
+        } else if (index == 2) {
+          // PROFILE
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const ProfilePage(),
+            ),
+          );
         }
-        // index == 2 (profile) biar di-handle di screen kalau mau
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 260),
         curve: Curves.easeOutCubic,
-        }
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 260),
-        curve: Curves.easeOutCubic, // GERAKAN LEMBUT
         transform: isActive
             ? (Matrix4.identity()..translate(0.0, -10.0))
             : Matrix4.identity(),
@@ -114,7 +117,6 @@ class TutorBottomNavBar extends StatelessWidget {
         child: Icon(
           icon,
           size: 30,
-          size: 30, // ICON LEBIH BESAR
           color: isActive
               ? const Color(0xFF6A6FE9)
               : Colors.white,
