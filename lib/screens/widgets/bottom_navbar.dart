@@ -3,6 +3,7 @@ import '../chat/chat_list_screen.dart';
 
 class TutorBottomNavBar extends StatelessWidget {
   final int currentIndex;
+  final ValueChanged<int> onTap;
   final Function(int) onTap;
 
   const TutorBottomNavBar({
@@ -67,6 +68,15 @@ class TutorBottomNavBar extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        // kalau tab yang sama, nggak ngapa-ngapain
+        if (index == currentIndex) return;
+
+        // kasih tahu parent dulu
+        onTap(index);
+
+        // LOGIKA NAVIGASI DASAR
+        if (index == 1) {
+          // pindah ke daftar chat
         onTap(index);
 
         // JIKA TOMBOL CHAT DITEKAN
@@ -77,6 +87,15 @@ class TutorBottomNavBar extends StatelessWidget {
               builder: (_) => const ChatListScreen(),
             ),
           );
+        } else if (index == 0) {
+          // balik ke halaman paling awal (Home)
+          Navigator.popUntil(context, (route) => route.isFirst);
+        }
+        // index == 2 (profile) biar di-handle di screen kalau mau
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 260),
+        curve: Curves.easeOutCubic,
         }
       },
       child: AnimatedContainer(
@@ -94,6 +113,7 @@ class TutorBottomNavBar extends StatelessWidget {
             : null,
         child: Icon(
           icon,
+          size: 30,
           size: 30, // ICON LEBIH BESAR
           color: isActive
               ? const Color(0xFF6A6FE9)

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/bottom_navbar.dart';
 
-// GSM TUTOR Colors (kalau mau rapi bisa dipindah ke file terpisah)
+// GSM TUTOR Colors
 class GsmColors {
   static const Color orangeDark = Color(0xFFD65609);
   static const Color orangeLight = Color(0xFFFFA975);
@@ -27,8 +28,7 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // dummy pesan
-    final messages = [
+    final List<ChatMessage> messages = [
       ChatMessage(
         fromMe: false,
         text:
@@ -89,7 +89,7 @@ class ChatRoomScreen extends StatelessWidget {
                       backgroundColor: Colors.white,
                       child: ClipOval(
                         child: Image.asset(
-                          'assets/logo.png', // ganti sesuai asset
+                          'assets/logo.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -157,7 +157,6 @@ class ChatRoomScreen extends StatelessWidget {
               // Chat list
               Expanded(
                 child: Container(
-                  // biar bagian bawah lebih keputihan
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -185,6 +184,14 @@ class ChatRoomScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+
+      // NAVBAR GLOBAL
+      bottomNavigationBar: TutorBottomNavBar(
+        currentIndex: 1,
+        onTap: (index) {
+          // di ChatRoom, biarkan nav bar yang handle home/chat
+        },
       ),
     );
   }
@@ -217,7 +224,7 @@ class DetailOrderCard extends StatelessWidget {
             backgroundColor: GsmColors.purpleLight,
             child: ClipOval(
               child: Image.asset(
-                'assets/logo.png', // ganti
+                'assets/logo.png',
                 fit: BoxFit.cover,
               ),
             ),
@@ -284,14 +291,15 @@ class _ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMe = message.fromMe;
+    final bool isMe = message.fromMe;
 
-    final bgColor = isMe
-        ? GsmColors.pinkLight       // bubble kita
-        : GsmColors.purpleLight;    // bubble user
-    final align = isMe ? Alignment.centerRight : Alignment.centerLeft;
+    final Color bgColor = isMe
+        ? GsmColors.pinkLight
+        : GsmColors.purpleLight;
+    final Alignment align =
+        isMe ? Alignment.centerRight : Alignment.centerLeft;
 
-    final radius = BorderRadius.only(
+    final BorderRadius radius = BorderRadius.only(
       topLeft: const Radius.circular(18),
       topRight: const Radius.circular(18),
       bottomLeft:
@@ -325,7 +333,7 @@ class _ChatBubble extends StatelessWidget {
 }
 
 class _ChatInputBar extends StatelessWidget {
-  const _ChatInputBar();
+  const _ChatInputBar({super.key});
 
   @override
   Widget build(BuildContext context) {

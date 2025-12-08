@@ -18,6 +18,7 @@ import 'screens/sesi/tutor_selesai_page.dart';
 import 'screens/sesi/review_page.dart';
 import 'screens/sesi/calling_page.dart';
 import 'screens/sesi/detail_sesi_selesai_page.dart';
+import 'screens/profilepage/profile_page.dart';
 import 'splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 final supabase = Supabase.instance.client;
