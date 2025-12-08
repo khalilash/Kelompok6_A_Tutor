@@ -330,14 +330,14 @@ class _HomePageState extends State<HomePage> {
 
               if (index == 0) {
                 // BANNER KATEGORI
-                title = "Belum Menemukan Kategori?";
-                subtitle = "Jelajahi semua bidang belajar di sini";
+                title = "Cari Kategori";
+                subtitle = "Jelajahi semua bidang";
               } else if (index == 1) {
                 title = "Cari Tutor Terbaik";
-                subtitle = "Mulai sesi bareng tutor pilihanmu";
+                subtitle = "Mulai sesi tutor pilihanmu";
               } else {
                 title = "Belajar Jadi Mudah";
-                subtitle = "Cek tutor favoritmu dan atur jadwal";
+                subtitle = "Cek tutor favoritmu";
               }
 
               // --- gambar & warna sama seperti sebelumnya ---
