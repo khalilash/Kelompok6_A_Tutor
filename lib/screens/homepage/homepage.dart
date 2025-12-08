@@ -206,8 +206,34 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
 
-                          // 🌟 KARTU BESAR BARU
-                          const SizedBox(height: 16),
+                          // ===== TUTOR PILIHAN =====
+                          const SizedBox(height: 22),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text(
+                                "Aktivitas",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 4),
+
+                          const Text(
+                            "Lihat sesi yang sedang berlangsung",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+
+                          // 🌟 KARTU BESAR
+                          const SizedBox(height: 12),
 
                           const BigTutorCard(
                             name: "Khalila",
