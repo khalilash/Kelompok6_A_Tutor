@@ -30,27 +30,32 @@ class ChatRoomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<ChatMessage> messages = [
       ChatMessage(
-        fromMe: false,
-        text:
-            'Halooo kak salam kenal aku Lila, aku butuh tutor buat pemrograman web, bisa gaa?',
-      ),
-      ChatMessage(
-        fromMe: true,
-        text: 'Halo Lila! salam juga 🥰',
-      ),
-      ChatMessage(
         fromMe: true,
         text:
-            'Kamu butuh untuk kapan?\nUntuk beberapa hari ke depan sesi tutorku masih banyak yang kosong sih, dicek ajaa',
+          'Halo kak Adlina! salam kenal 😊\nAku mau belajar pemrograman web, masih bisa ya?',
       ),
       ChatMessage(
         fromMe: false,
-        text:
-            'Oke kak, nanti aku request buat diajarin pelan-pelan ya pake bahasa bayi…',
+        text: 'Haii! Halo juga 🥰\nMasih bisa dong, kebetulan aku masih ada slot kosong.',
       ),
       ChatMessage(
         fromMe: true,
-        text: 'Wkwkw, oke Lila!',
+        text:
+            'Yeyy syukurlah 😆\nKak, biasanya jadwal yang available di hari apa ya?',
+      ),
+      ChatMessage(
+        fromMe: false,
+        text:
+            'Untuk minggu ini aku available hari Senin, Kamis, dan Sabtu ya.\nKakak minat yang jam berapa?',
+      ),
+      ChatMessage(
+        fromMe: true,
+        text: 'Kayaknya Kamis sore cocok kak, sekitar jam 4 boleh?',
+      ),
+      ChatMessage(
+        fromMe: false,
+        text:
+            'Bisa banget 😊\nNanti aku jadwalkan ya hari Kamis jam 16.00.',
       ),
     ];
 
@@ -371,7 +376,7 @@ class _ChatInputBar extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.send, color: GsmColors.orangeDark),
+              icon: const Icon(Icons.send, color: Color.fromARGB(255, 255, 255, 255)),
             ),
           ],
         ),

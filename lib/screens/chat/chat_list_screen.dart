@@ -45,13 +45,13 @@ class ChatListScreen extends StatelessWidget {
       },
       {
         'name': 'Adlina',
-        'message': 'Terima kasih kak! seru sekali!!',
+        'message': 'Halo, sesi hari ini pukul 19:00 ya',
         'time': '5.40 PM',
         'unread': 0,
       },
       {
         'name': 'Lea',
-        'message': 'Ok kak aman banget makasih ya',
+        'message': 'Sama sama, Sasha!',
         'time': '8.28 AM',
         'unread': 3,
       },

@@ -56,9 +56,15 @@ class _DetailSesiPageState extends State<DetailSesiPage> {
         elevation: 0,
         foregroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/homepage',
+            (route) => false,
+          );
+        },
+      ),
         title: const Text('Detail Sesi'),
         centerTitle: true,
       ),
