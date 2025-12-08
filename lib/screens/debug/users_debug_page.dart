@@ -20,8 +20,8 @@ class _UsersDebugPageState extends State<UsersDebugPage> {
 
   Future<void> _loadUsers() async {
     try {
-    final data = await supabase.from('users').select().order('created_at');
-
+      final data =
+          await supabase.from('users').select().order('created_at');
 
       setState(() {
         _users = List<Map<String, dynamic>>.from(data);
@@ -34,9 +34,11 @@ class _UsersDebugPageState extends State<UsersDebugPage> {
     } catch (e) {
       // ignore: avoid_print
       print('ERROR SUPABASE: $e');
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
