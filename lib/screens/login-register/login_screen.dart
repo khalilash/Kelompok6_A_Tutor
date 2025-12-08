@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'register_screen.dart';
 import '../homepage/homepage.dart';
+import '../../supabase_client.dart'; // pastikan path benar
+import 'register_screen.dart'; // karena masih 1 folder: login-register
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +14,72 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool passwordVisible = false;
 
+  // controller input
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onLogin() async {
+    final username = _usernameController.text.trim();
+    final password = _passwordController.text;
+
+    if (username.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Username dan password wajib diisi.')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      // cari user berdasarkan username
+      final data = await supabase
+          .from('users')
+          .select()
+          .eq('username', username)
+          .maybeSingle();
+
+      if (data == null) {
+        // username tidak ditemukan
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User tidak ditemukan.')),
+        );
+        return;
+      }
+
+      final String? dbPassword = data['password'] as String?;
+
+      if (dbPassword == null || dbPassword != password) {
+        // password salah
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Password salah.')),
+        );
+        return;
+      }
+
+      // ✅ username & password benar → masuk ke HomePage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal login: $e')),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/login.png"), // FOTO BG
+            image: AssetImage("assets/login.png"),
             fit: BoxFit.cover,
-            // colorFilter: ColorFilter.mode(
-            //   Colors.black45, // gelapin sedikit biar teks terbaca
-            //   BlendMode.darken,
-            // ),
           ),
         ),
         child: SafeArea(
@@ -35,7 +99,6 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 220),
-
                 const Text(
                   "Login",
                   style: TextStyle(
@@ -44,18 +107,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Color(0xFF343446),
                   ),
                 ),
-
                 const SizedBox(height: 30),
 
+                // USERNAME
                 const Text("Username*", style: _label),
                 const SizedBox(height: 6),
-                _inputField(hint: "Masukkan username anda"),
+                _inputField(
+                  hint: "Masukkan username anda",
+                  controller: _usernameController,
+                ),
 
                 const SizedBox(height: 16),
 
+                // PASSWORD
                 const Text("Password*", style: _label),
                 const SizedBox(height: 6),
                 _passwordField(
+                  controller: _passwordController,
                   visible: passwordVisible,
                   onToggle: () {
                     setState(() {
@@ -91,18 +159,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const HomePage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Log in",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
+                    onPressed: _isLoading ? null : _onLogin,
+                    child: _isLoading
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text(
+                            "Log in",
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white),
+                          ),
                   ),
                 ),
 
@@ -111,8 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Don't have an account yet? ",
-                        style: TextStyle(color: Color(0xFF343446))),
+                    const Text(
+                      "Don't have an account yet? ",
+                      style: TextStyle(color: Color(0xFF343446)),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -141,14 +214,28 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-const TextStyle _label =
-    TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF343446));
+// ---------- STYLE & HELPER WIDGETS DI BAWAH ----------
 
-Widget _inputField({required String hint}) {
+const TextStyle _label = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w600,
+  color: Color(0xFF343446),
+);
+
+final BoxDecoration _box = BoxDecoration(
+  borderRadius: BorderRadius.circular(8),
+  border: Border.all(color: const Color(0xFF343446)),
+);
+
+Widget _inputField({
+  required String hint,
+  required TextEditingController controller,
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14),
     decoration: _box,
     child: TextField(
+      controller: controller,
       style: const TextStyle(color: Color(0xFF343446)),
       decoration: InputDecoration(
         border: InputBorder.none,
@@ -159,11 +246,16 @@ Widget _inputField({required String hint}) {
   );
 }
 
-Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
+Widget _passwordField({
+  required TextEditingController controller,
+  required bool visible,
+  required VoidCallback onToggle,
+}) {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 14),
     decoration: _box,
     child: TextField(
+      controller: controller,
       obscureText: !visible,
       style: const TextStyle(color: Color(0xFF343446)),
       decoration: InputDecoration(
@@ -173,7 +265,7 @@ Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
         suffixIcon: IconButton(
           icon: Icon(
             visible ? Icons.visibility : Icons.visibility_off,
-            color: Color(0xFF343446),
+            color: const Color(0xFF343446),
           ),
           onPressed: onToggle,
         ),
@@ -181,8 +273,3 @@ Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
     ),
   );
 }
-
-final BoxDecoration _box = BoxDecoration(
-  borderRadius: BorderRadius.circular(8),
-  border: Border.all(color: Color(0xFF343446)),
-);
