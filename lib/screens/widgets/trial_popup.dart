@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../booking/tutor_list_screen.dart';
+
 
 class TrialPopup extends StatelessWidget {
   const TrialPopup({super.key});
@@ -60,38 +62,41 @@ class TrialPopup extends StatelessWidget {
 
             // ===== BUTTON GRADASI =====
             GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                // TODO: Navigasi ke halaman booking
-                // Navigator.pushNamed(context, '/booking');
-              },
-              child: Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color(0xff7078F0),
-                      Color(0xff9FA6FF),
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                ),
-                child: const Center(
-                  child: Text(
-                    'PESAN SEKARANG',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.1,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+  onTap: () {
+    Navigator.pop(context); // Tutup popup dulu
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const TutorListScreen()),
+    );
+  },
+  child: Container(
+    width: double.infinity,
+    height: 56,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(18),
+      gradient: const LinearGradient(
+        colors: [
+          Color(0xff7078F0),
+          Color(0xff9FA6FF),
+        ],
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+      ),
+    ),
+    child: const Center(
+      child: Text(
+        'PESAN SEKARANG',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.1,
+        ),
+      ),
+    ),
+  ),
+),
+
 
             const SizedBox(height: 10),
 

@@ -29,12 +29,13 @@ class OrderDetailScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
 
-              // HEADER WITH BACK BUTTON
+              // ==========================
+              // HEADER
+              // ==========================
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
-                    // Back Button
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: const Icon(Icons.arrow_back,
@@ -57,6 +58,9 @@ class OrderDetailScreen extends StatelessWidget {
 
               const SizedBox(height: 25),
 
+              // ==========================
+              // WHITE CONTENT PANEL
+              // ==========================
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.all(20),
@@ -64,6 +68,9 @@ class OrderDetailScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // ==========================
+                      // TITLE
+                      // ==========================
                       Text(
                         "Detail",
                         style: GoogleFonts.poppins(
@@ -74,105 +81,119 @@ class OrderDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
 
-                      // ----------------------
-                      // TUTOR CARD (PINK)
-                      // ----------------------
+                      // ==========================
+                      // TUTOR CARD (SOLID + BLOB)
+                      // ==========================
                       Container(
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: tutor.gradient,
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
+                          color: tutor.cardColor,
                           borderRadius: BorderRadius.circular(18),
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Stack(
                           children: [
-                            // FOTO DENGAN BACKGROUND PUTIH
-                            Container(
-                              padding: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(22),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(18),
-                                child: Image.asset(
-                                  tutor.image,
-                                  width: 70,
-                                  height: 70,
-                                  fit: BoxFit.cover,
+                            // BLOB DEKORASI
+                            Positioned(
+                              right: -20,
+                              bottom: -10,
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  color: tutor.blobColor.withOpacity(0.25),
+                                  borderRadius: BorderRadius.circular(100),
                                 ),
                               ),
                             ),
 
-                            const SizedBox(width: 12),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // FOTO TUTOR
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(22),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Image.asset(
+                                      tutor.image,
+                                      width: 70,
+                                      height: 70,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
 
-                            // TEXT DETAILS
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    tutor.name,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    tutor.subject,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 13,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
+                                const SizedBox(width: 12),
+
+                                // TEXT INFO
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Icon(Icons.star,
-                                          color: Colors.yellow, size: 16),
-                                      const SizedBox(width: 4),
                                       Text(
-                                        tutor.rating,
+                                        tutor.name,
                                         style: GoogleFonts.poppins(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        tutor.subject,
+                                        style: GoogleFonts.poppins(
                                           fontSize: 13,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.star,
+                                              color: Colors.yellow, size: 16),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            tutor.rating,
+                                            style: GoogleFonts.poppins(
+                                              color: Colors.white,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        "Rp${tutor.price}",
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold,
+                                          color: const Color(0xFF343446),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    "Rp${tutor.price}",
+                                ),
+
+                                // BUTTON "PESAN"
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14, vertical: 7),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.85),
+                                    borderRadius: BorderRadius.circular(14),
+                                  ),
+                                  child: Text(
+                                    "Pesan",
                                     style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      fontSize: 12,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-
-                            // BUTTON PESAN (KOTAK KECIL)
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 14, vertical: 7),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.8),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: Text(
-                                "Pesan",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w600,
                                 ),
-                              ),
+                              ],
                             ),
                           ],
                         ),
@@ -180,9 +201,9 @@ class OrderDetailScreen extends StatelessWidget {
 
                       const SizedBox(height: 30),
 
-                      // --------------------------
+                      // ==========================
                       // PEMBAYARAN
-                      // --------------------------
+                      // ==========================
                       Text("Pembayaran",
                           style: GoogleFonts.poppins(
                               fontSize: 16, fontWeight: FontWeight.w600)),
@@ -199,18 +220,20 @@ class OrderDetailScreen extends StatelessWidget {
                         children: [
                           Text("Total",
                               style: GoogleFonts.poppins(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
                           Text("Rp${tutor.price}",
                               style: GoogleFonts.poppins(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
 
                       const Spacer(),
 
-                      // -----------------------
-                      // PESAN SEKARANG (ONLY)
-                      // -----------------------
+                      // ==========================
+                      // BUTTON PESAN SEKARANG
+                      // ==========================
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -224,8 +247,7 @@ class OrderDetailScreen extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF1E2340),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 14),
+                            padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(14),
                             ),
@@ -251,9 +273,9 @@ class OrderDetailScreen extends StatelessWidget {
     );
   }
 
-  // =============================================
-  // PAYMENT ROW
-  // =============================================
+  // ==========================
+  // ROW PEMBAYARAN
+  // ==========================
   Widget _payRow(String left, String right) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
@@ -267,9 +289,9 @@ class OrderDetailScreen extends StatelessWidget {
     );
   }
 
-  // =============================================
-  // BACKGROUN
-  // =============================================
+  // ==========================
+  // BACKGROUND
+  // ==========================
   BoxDecoration _bg() {
     return const BoxDecoration(
       gradient: LinearGradient(
