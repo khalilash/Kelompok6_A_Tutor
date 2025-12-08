@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../booking/tutor_list_screen.dart';
-
+// SESUAIKAN PATH kalau category_page.dart di folder lain
+import '/screens/category_page.dart';
 
 class TrialPopup extends StatelessWidget {
   const TrialPopup({super.key});
@@ -19,7 +19,6 @@ class TrialPopup extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-
             // ===== JUDUL =====
             const Text(
               'Dapatkan\nPercobaan Gratis',
@@ -35,7 +34,7 @@ class TrialPopup extends StatelessWidget {
 
             // ===== GAMBAR / KARTU TUTOR =====
             SizedBox(
-              height: 185, // BESARIN FOTO DI SINI
+              height: 185,
               width: double.infinity,
               child: Image.asset(
                 'assets/popup.png',
@@ -62,41 +61,45 @@ class TrialPopup extends StatelessWidget {
 
             // ===== BUTTON GRADASI =====
             GestureDetector(
-  onTap: () {
-    Navigator.pop(context); // Tutup popup dulu
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const TutorListScreen()),
-    );
-  },
-  child: Container(
-    width: double.infinity,
-    height: 56,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(18),
-      gradient: const LinearGradient(
-        colors: [
-          Color(0xff7078F0),
-          Color(0xff9FA6FF),
-        ],
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
-    ),
-    child: const Center(
-      child: Text(
-        'PESAN SEKARANG',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.1,
-        ),
-      ),
-    ),
-  ),
-),
+              onTap: () {
+                // tutup dialog dulu
+                Navigator.pop(context);
 
+                // lalu pindah ke CategoryPage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const CategoryPage(),
+                  ),
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xff7078F0),
+                      Color(0xff9FA6FF),
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                ),
+                child: const Center(
+                  child: Text(
+                    'PESAN SEKARANG',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.1,
+                    ),
+                  ),
+                ),
+              ),
+            ),
 
             const SizedBox(height: 10),
 
