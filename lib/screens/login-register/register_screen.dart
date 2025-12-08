@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart'; // boleh dihapus kalau cuma pakai supabase_client.dart
+import '../../supabase_client.dart'; // pastikan file ini berisi: final supabase = Supabase.instance.client;
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -12,31 +14,102 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
 
+  // Controllers
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _onCreateAccount() async {
+    final username = _usernameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+    final confirmPassword = _confirmPasswordController.text;
+    final phone = _phoneController.text.trim();
+
+    // ✅ validasi field wajib
+    if (username.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty ||
+        phone.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Lengkapi semua field bertanda *.')),
+      );
+      return;
+    }
+
+    // ✅ cek konfirmasi password
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Konfirmasi password tidak sama.')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      // ✅ Insert ke tabel "users"
+      await supabase.from('users').insert({
+        'username': username,
+        'email': email,
+        'phone': '+62$phone',
+        'password': password, // ⬅️ PENTING: simpan password
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registrasi berhasil! Silakan login.')),
+      );
+
+      // pindah ke halaman login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+      );
+    } catch (e) {
+      debugPrint('Gagal insert user: $e');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal registrasi: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // ----------------------------
           // BACKGROUND IMAGE
-          // ----------------------------
           Positioned.fill(
             child: Image.asset(
-              "assets/register.png",  // GANTI SESUAI FILE KAMU
+              "assets/register.png",
               fit: BoxFit.cover,
             ),
           ),
 
-          // // OPTIONAL: kasih layer gelap biar teks jelas
-          // Positioned.fill(
-          //   child: Container(
-          //     color: Colors.black.withOpacity(0.35),
-          //   ),
-          // ),
-
-          // ----------------------------
           // CONTENT
-          // ----------------------------
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
@@ -58,21 +131,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // USERNAME
                   const Text("Username*", style: _labelWhite),
                   const SizedBox(height: 6),
-                  _inputField(hint: "Masukkan username anda"),
+                  _buildInputField(
+                    controller: _usernameController,
+                    hint: "Masukkan username anda",
+                  ),
 
                   const SizedBox(height: 16),
 
                   // EMAIL
                   const Text("Email*", style: _labelWhite),
                   const SizedBox(height: 6),
-                  _inputField(hint: "Masukkan email anda"),
+                  _buildInputField(
+                    controller: _emailController,
+                    hint: "Masukkan email anda",
+                    keyboardType: TextInputType.emailAddress,
+                  ),
 
                   const SizedBox(height: 16),
 
                   // PASSWORD
                   const Text("Password*", style: _labelWhite),
                   const SizedBox(height: 6),
-                  _passwordField(
+                  _buildPasswordField(
+                    controller: _passwordController,
                     visible: passwordVisible,
                     onToggle: () {
                       setState(() {
@@ -86,7 +167,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // CONFIRM PASSWORD
                   const Text("Konfirmasi Password*", style: _labelWhite),
                   const SizedBox(height: 6),
-                  _passwordField(
+                  _buildPasswordField(
+                    controller: _confirmPasswordController,
                     visible: confirmPasswordVisible,
                     onToggle: () {
                       setState(() {
@@ -100,7 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // PHONE
                   const Text("Nomor Telepon*", style: _labelWhite),
                   const SizedBox(height: 6),
-                  _phoneField(),
+                  _buildPhoneField(controller: _phoneController),
 
                   const SizedBox(height: 30),
 
@@ -115,18 +197,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                       ),
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        "Create Account",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
+                      onPressed: _isLoading ? null : _onCreateAccount,
+                      child: _isLoading
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Text(
+                              "Create Account",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.white),
+                            ),
                     ),
                   ),
 
@@ -151,8 +236,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: const Text(
                           "Login",
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -165,10 +251,93 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  // ----------------- WIDGET HELPER -----------------
+
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required String hint,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      decoration: _box,
+      child: TextField(
+        controller: controller,
+        keyboardType: keyboardType,
+        style: const TextStyle(color: Color(0xFF343446)),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: hint,
+          hintStyle: const TextStyle(color: Color(0xFF343446)),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordField({
+    required TextEditingController controller,
+    required bool visible,
+    required VoidCallback onToggle,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      decoration: _box,
+      child: TextField(
+        controller: controller,
+        obscureText: !visible,
+        style: const TextStyle(color: Color(0xFF343446)),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: "Masukkan Password anda",
+          hintStyle: const TextStyle(color: Color(0xFF343446)),
+          suffixIcon: IconButton(
+            icon: Icon(
+              visible ? Icons.visibility : Icons.visibility_off,
+              color: const Color(0xFF343446),
+            ),
+            onPressed: onToggle,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPhoneField({required TextEditingController controller}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      decoration: _box,
+      child: Row(
+        children: [
+          const Text(
+            "+62",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF343446),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              keyboardType: TextInputType.number,
+              style: const TextStyle(color: Color(0xFF343446)),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: "87xxxxxxxxxx",
+                hintStyle: TextStyle(color: Color(0xFF343446)),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 // ------------------------------------------------------
-// STYLE + INPUT COMPONENTS
+// STYLE
 // ------------------------------------------------------
 
 const TextStyle _labelWhite = TextStyle(
@@ -177,73 +346,7 @@ const TextStyle _labelWhite = TextStyle(
   color: Color(0xFF343446),
 );
 
-Widget _inputField({required String hint}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14),
-    decoration: _box,
-    child: TextField(
-      style: const TextStyle(color: Color(0xFF343446)),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: hint,
-        hintStyle: const TextStyle(color: Color(0xFF343446)),
-      ),
-    ),
-  );
-}
-
-Widget _passwordField({required bool visible, required VoidCallback onToggle}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14),
-    decoration: _box,
-    child: TextField(
-      obscureText: !visible,
-      style: const TextStyle(color: Color(0xFF343446)),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: "Masukkan Password anda",
-        hintStyle: const TextStyle(color: Color(0xFF343446)),
-        suffixIcon: IconButton(
-          icon: Icon(
-            visible ? Icons.visibility : Icons.visibility_off,
-            color: Color(0xFF343446),
-          ),
-          onPressed: onToggle,
-        ),
-      ),
-    ),
-  );
-}
-
-Widget _phoneField() {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 14),
-    decoration: _box,
-    child: Row(
-      children: [
-        const Text(
-          "+62",
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF343446)),
-        ),
-        const SizedBox(width: 10),
-        const Expanded(
-          child: TextField(
-            keyboardType: TextInputType.number,
-            style: TextStyle(color: Color(0xFF343446)),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "87xxxxxxxxxx",
-              hintStyle: TextStyle(color: Color(0xFF343446)),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
 final BoxDecoration _box = BoxDecoration(
   borderRadius: BorderRadius.circular(8),
-  border: Border.all(color: Color(0xFF343446)),
+  border: Border.all(color: const Color(0xFF343446)),
 );
