@@ -533,7 +533,14 @@ class TutorCardFancy extends StatelessWidget {
                         height: 120, 
                         decoration: BoxDecoration(
                           color: bgColor,
-                          borderRadius: const BorderRadius.vertical(top: Radius.circular(18),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(18),
+                          ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: HalfCircleBlob(
+                            color: Colors.white.withOpacity(0.25), // blob lembut
                           ),
                         ),
                       ),
@@ -776,6 +783,25 @@ class _Blob extends StatelessWidget {
   }
 }
 
+class HalfCircleBlob extends StatelessWidget {
+  final Color color;
+
+  const HalfCircleBlob({super.key, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 70,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(300),
+        ),
+      ),
+    );
+  }
+}
 
 // ================= PUZZLE CLIPPER =================
 class PuzzleClipper extends CustomClipper<Path> {
