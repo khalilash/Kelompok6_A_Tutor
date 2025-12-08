@@ -7,6 +7,7 @@ import '../search/search_page.dart';
 import '../booking/tutor_list_screen.dart';
 import '../sesi/detail_sesi_page.dart';
 import '/screens/category_page.dart';
+import '../booking/select_date_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -182,16 +183,35 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 10),
 
                           // ROW REKOMENDASI
+                          // ROW REKOMENDASI
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
-                              children: const [
+                              children: [
                                 TutorCardFancy(
                                   name: "Khalila",
                                   role: "DMJK",
                                   price: "Rp50.000 / Sesi",
                                   image: "assets/tutor1_naura.png",
                                   bgColor: Color(0xFFF6C49A),
+                                  onTap: () {
+                                    final tutorKhalila = Tutor(
+                                      name: "Khalila",
+                                      subject: "DMJK",
+                                      rating: "4.9",
+                                      image: "assets/tutor1_naura.png",
+                                      price: 50000,
+                                      cardColor: const Color(0xFFFFA975),
+                                      blobColor: const Color(0xFFD65609),
+                                    );
+                                    
+                                    Navigator.push(
+                                      context, 
+                                      MaterialPageRoute(
+                                        builder: (_) => SelectDateScreen(tutor: tutorKhalila),
+                                      ),
+                                    );  
+                                  },
                                 ),
                                 SizedBox(width: 14),
                                 TutorCardFancy(
@@ -200,6 +220,24 @@ class _HomePageState extends State<HomePage> {
                                   price: "Rp50.000 / Sesi",
                                   image: "assets/tutor2_naura.png",
                                   bgColor: Color(0xFFF2B6C0),
+                                  onTap: () {
+                                    final tutorNaura = Tutor(
+                                      name: "Naura",
+                                      subject: "Teknologi Berkembang",
+                                      rating: "4.9",
+                                      image: "assets/tutor2_naura.png",
+                                      price: 50000,
+                                      cardColor: const Color(0xFFFEB8C3),
+                                      blobColor: const Color(0xFFFF687F),
+                                    );
+                                    
+                                    Navigator.push(
+                                      context, 
+                                      MaterialPageRoute(
+                                        builder: (_) => SelectDateScreen(tutor: tutorNaura),
+                                      ),
+                                    );  
+                                  },
                                 ),
                                 SizedBox(width: 14),
                                 TutorCardFancy(
@@ -208,6 +246,24 @@ class _HomePageState extends State<HomePage> {
                                   price: "Rp1.000 / Sesi",
                                   image: "assets/tutor3.png",
                                   bgColor: Color(0xFFBCC6F6),
+                                  onTap: () {
+                                    final tutorJuno = Tutor(
+                                      name: "Juno",
+                                      subject: "PPPL",
+                                      rating: "4.9",
+                                      image: "assets/tutor3.png",
+                                      price: 1000,
+                                      cardColor: const Color(0xFFBCC6F6),
+                                      blobColor: const Color(0xFF566CD8),
+                                    );
+                                    
+                                    Navigator.push(
+                                      context, 
+                                      MaterialPageRoute(
+                                        builder: (_) => SelectDateScreen(tutor: tutorJuno),
+                                      ),
+                                    );  
+                                  },
                                 ),
                               ],
                             ),
@@ -241,7 +297,7 @@ class _HomePageState extends State<HomePage> {
 
                           const SizedBox(height: 10),
 
-                          const BigTutorCard(
+                          BigTutorCard(
                             name: "Khalila",
                             subject: "Dasar Pemrograman",
                             rating: 4.9,
@@ -609,117 +665,119 @@ class BigTutorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 6),
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 14),
+      height: 140, // lebih ramping
       decoration: BoxDecoration(
-        color: const Color(0xFFFFA975), // oren muda
+        color: const Color(0xFFFFA975),
         borderRadius: BorderRadius.circular(26),
       ),
       child: Stack(
         children: [
-          // wave lembut kanan
+          // 🎨 SETENGAH LINGKARAN HIASAN
           Positioned(
             right: -40,
-            top: -10,
+            top: 10,
             child: Container(
-              width: 220,
-              height: 150,
+              width: 140,
+              height: 140,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.23),
-                borderRadius: BorderRadius.circular(180),
+                color: Colors.white.withOpacity(0.18),
+                borderRadius: BorderRadius.circular(100),
               ),
             ),
           ),
 
-          // isi utama
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Color(0xFFD65609), // oren tua
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                subject,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFFD65609),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: const [
-                  Text(
-                    "4.9",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+          // 🔶 KONTEN CARD
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // NAMA
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFFD65609),
                   ),
-                  SizedBox(width: 4),
-                  Icon(Icons.star, size: 16, color: Colors.yellow),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                price,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w900,
-                  color: Color(0xFF343446),
                 ),
-              ),
-              const SizedBox(height: 10),
 
-              // tombol Detail Sesi aja
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const DetailSesiPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 26,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
+                const SizedBox(height: 2),
+
+                // MAPEL
+                Text(
+                  subject,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF6B3106),
+                  ),
+                ),
+
+                const SizedBox(height: 4),
+
+                // RATING
+                Row(
+                  children: [
+                    const Icon(Icons.star, size: 16, color: Colors.yellow),
+                    const SizedBox(width: 3),
+                    Text(
+                      rating.toString(),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(22),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.06),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
                       ),
-                      child: const Text(
-                        "Detail Sesi",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF6B6B6B),
-                          fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
+
+                const Spacer(), // aman, karena column skrg muat
+
+                // HARGA + TOMBOL
+                Row(
+                  children: [
+                    Text(
+                      price,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF343446),
+                      ),
+                    ),
+                    const Spacer(),
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const DetailSesiPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Text(
+                          "Detail Sesi",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Color(0xFF6B6B6B),
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -732,6 +790,7 @@ class BigTutorCard extends StatelessWidget {
 class TutorCardFancy extends StatelessWidget {
   final String name, role, price, image;
   final Color bgColor;
+  final VoidCallback? onTap; // ← tambahan
 
   const TutorCardFancy({
     super.key,
@@ -740,123 +799,126 @@ class TutorCardFancy extends StatelessWidget {
     required this.price,
     required this.image,
     required this.bgColor,
+    this.onTap, // ← tambahan
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      margin: const EdgeInsets.only(bottom: 20),
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 38),
-              Container(
-                decoration: BoxDecoration(
-                  color: bgColor,
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: bgColor,
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(18),
-                        ),
-                      ),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: HalfCircleBlob(
-                          color: Colors.white.withOpacity(0.25),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: const BorderRadius.vertical(
-                          bottom: Radius.circular(18),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.08),
-                            blurRadius: 10,
-                            offset: const Offset(0, 6),
+    return GestureDetector(
+      onTap: onTap, // ← ketika card ditekan
+      child: Container(
+        width: 150,
+        margin: const EdgeInsets.only(bottom: 20),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Column(
+              children: [
+                const SizedBox(height: 38),
+                Container(
+                  decoration: BoxDecoration(
+                    color: bgColor,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: bgColor,
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(18),
                           ),
-                        ],
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: HalfCircleBlob(
+                            color: Colors.white.withOpacity(0.25),
+                          ),
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            name,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.vertical(
+                            bottom: Radius.circular(18),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.08),
+                              blurRadius: 10,
+                              offset: const Offset(0, 6),
                             ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            role,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 6),
-                          Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                price,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
+                            const SizedBox(height: 2),
+                            Text(
+                              role,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  price,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                              const Row(
-                                children: [
-                                  Icon(Icons.star,
-                                      size: 14, color: Colors.amber),
-                                  SizedBox(width: 4),
-                                  Text("4.9",
-                                      style: TextStyle(fontSize: 12)),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
+                                const Row(
+                                  children: [
+                                    Icon(Icons.star,
+                                        size: 14, color: Colors.amber),
+                                    SizedBox(width: 4),
+                                    Text("4.9",
+                                        style: TextStyle(fontSize: 12)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Positioned(
+              top: -5,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Image.asset(
+                  image,
+                  height: 175,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, e, _) =>
+                      const Icon(Icons.person, size: 120),
                 ),
-              )
-            ],
-          ),
-          Positioned(
-            top: -5,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: Image.asset(
-                image,
-                height: 175,
-                fit: BoxFit.contain,
-                errorBuilder: (context, e, _) =>
-                    const Icon(Icons.person, size: 120),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
