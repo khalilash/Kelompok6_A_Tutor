@@ -38,7 +38,7 @@ Saat ini aplikasi masih menggunakan **mock/local data** dan dapat dikembangkan l
 
 ---
 
-## 📦 Struktur Proyek (Singkat)
+## 📦 Struktur Proyek
 
 ```text
 lib/
