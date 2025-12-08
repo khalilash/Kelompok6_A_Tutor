@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/bottom_navbar.dart';
 import 'chat_room_screen.dart';
 
 // GSM TUTOR Colors
@@ -23,7 +24,7 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chats = [
+    final List<Map<String, dynamic>> chats = [
       {
         'name': 'Sasha',
         'message': 'Mau diskusi lewat zoom?',
@@ -58,163 +59,161 @@ class ChatListScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              // HEADER UNGU + CHAT TITLE + SEARCH
-              SizedBox(
-                height: 160,
-                child: Stack(
-                  children: [
-                    // bg gradient ungu GSM
-                    Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            GsmColors.purpleLight,
-                            GsmColors.purpleDark,
-                          ],
-                        ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(24),
-                          bottomRight: Radius.circular(24),
-                        ),
-                      ),
+          // HEADER UNGU + CHAT TITLE + SEARCH
+          SizedBox(
+            height: 160,
+            child: Stack(
+              children: [
+                // bg gradient ungu GSM
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        GsmColors.purpleLight,
+                        GsmColors.purpleDark,
+                      ],
                     ),
-
-                    // elemen lengkung putih di kiri atas
-                    Positioned(
-                      top: -80,
-                      left: -120,
-                      child: Container(
-                        width: 260,
-                        height: 260,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.18),
-                          borderRadius: BorderRadius.circular(260),
-                        ),
-                      ),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
                     ),
-                    Positioned(
-                      top: -40,
-                      left: -60,
-                      child: Container(
-                        width: 220,
-                        height: 220,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.26),
-                          borderRadius: BorderRadius.circular(220),
-                        ),
-                      ),
-                    ),
-
-                    // konten header: title + search
-                    SafeArea(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 12),
-                          Text(
-                            'Chat',
-                            style: GoogleFonts.poppins(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-
-                          // SEARCH BAR – KOTAK
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 24),
-                            child: Container(
-                              height: 44,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.8),
-                                  width: 2,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.08),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: TextField(
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 13,
-                                      ),
-                                      decoration: const InputDecoration(
-                                        hintText: 'Cari chat',
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                  const Icon(Icons.search),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // AREA PUTIH + LIST CHAT
-              Expanded(
-                child: Container(
-                  color: Colors.white,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    itemCount: chats.length,
-                    itemBuilder: (context, index) {
-                      final chat = chats[index];
-                      return _ChatItem(
-                        name: chat['name'] as String,
-                        message: chat['message'] as String,
-                        time: chat['time'] as String,
-                        unread: chat['unread'] as int,
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ChatRoomScreen(
-                                tutorName: chat['name'] as String,
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
                   ),
                 ),
-              ),
-            ],
+
+                // elemen lengkung putih di kiri atas
+                Positioned(
+                  top: -80,
+                  left: -120,
+                  child: Container(
+                    width: 260,
+                    height: 260,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.18),
+                      borderRadius: BorderRadius.circular(260),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -40,
+                  left: -60,
+                  child: Container(
+                    width: 220,
+                    height: 220,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.26),
+                      borderRadius: BorderRadius.circular(220),
+                    ),
+                  ),
+                ),
+
+                // konten header: title + search
+                SafeArea(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 12),
+                      Text(
+                        'Chat',
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // SEARCH BAR – KOTAK
+                      Padding(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 24),
+                        child: Container(
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.8),
+                              width: 2,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.08),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 13,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    hintText: 'Cari chat',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                              const Icon(Icons.search),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
 
-          // NAVBAR DI BAWAH
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: _BottomNavBar(),
+          // AREA PUTIH + LIST CHAT
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                itemCount: chats.length,
+                itemBuilder: (context, index) {
+                  final chat = chats[index];
+                  return _ChatItem(
+                    name: chat['name'] as String,
+                    message: chat['message'] as String,
+                    time: chat['time'] as String,
+                    unread: chat['unread'] as int,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ChatRoomScreen(
+                            tutorName: chat['name'] as String,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
           ),
         ],
+      ),
+
+      // NAVBAR GLOBAL
+      bottomNavigationBar: TutorBottomNavBar(
+        currentIndex: 1, // tab chat
+        onTap: (index) {
+          // untuk sekarang, biarin kosong; navigasi utama sudah di-handle di nav bar
+        },
       ),
     );
   }
@@ -328,83 +327,6 @@ class _ChatItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _BottomNavBar extends StatelessWidget {
-  const _BottomNavBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 72,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Container(
-            height: 32,
-            color: Colors.white,
-          ),
-          Positioned(
-            bottom: 10,
-            left: 40,
-            right: 40,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                // pill ungu
-                Container(
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: GsmColors.purpleLight,
-                    borderRadius: BorderRadius.circular(23),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.12),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(
-                        Icons.home_rounded,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                      Icon(
-                        Icons.person_rounded,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                    ],
-                  ),
-                ),
-
-                // cekungan putih di tengah
-                Positioned(
-                  top: -12,
-                  child: Container(
-                    width: 80,
-                    height: 26,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(36),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

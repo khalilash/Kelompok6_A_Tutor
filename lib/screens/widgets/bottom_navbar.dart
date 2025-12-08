@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../chat/chat_list_screen.dart';
+import '../homepage/homepage.dart';
+import '../profilepage/profile_page.dart';
 
 class TutorBottomNavBar extends StatelessWidget {
   final int currentIndex;
-  final Function(int) onTap;
+  final ValueChanged<int> onTap;
 
   const TutorBottomNavBar({
     super.key,
@@ -67,21 +69,41 @@ class TutorBottomNavBar extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        if (index == currentIndex) return;
+
         onTap(index);
 
-        // JIKA TOMBOL CHAT DITEKAN
-        if (index == 1) {
+        // ========== NAVIGASI ==========
+        if (index == 0) {
+          // HOME
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (_) => const HomePage()),
+            (route) => false,
+          );
+
+        } else if (index == 1) {
+          // CHAT
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => const ChatListScreen(),
             ),
           );
+
+        } else if (index == 2) {
+          // PROFILE
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const ProfilePage(),
+            ),
+          );
         }
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 260),
-        curve: Curves.easeOutCubic, // GERAKAN LEMBUT
+        curve: Curves.easeOutCubic,
         transform: isActive
             ? (Matrix4.identity()..translate(0.0, -10.0))
             : Matrix4.identity(),
@@ -94,7 +116,7 @@ class TutorBottomNavBar extends StatelessWidget {
             : null,
         child: Icon(
           icon,
-          size: 30, // ICON LEBIH BESAR
+          size: 30,
           color: isActive
               ? const Color(0xFF6A6FE9)
               : Colors.white,
