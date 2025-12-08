@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-// IMPORT SCREEN-TARGET
 import '../homepage/homepage.dart';
 import '../chat/chat_list_screen.dart';
 import 'select_date_screen.dart';
-
+import '../chat/chat_room_screen.dart';
 
 // =========================
 // MODEL TUTOR
@@ -42,7 +40,7 @@ class TutorListScreen extends StatelessWidget {
           name: "Khalila",
           subject: "Dasar Pemrograman",
           rating: "4.9",
-          image: "assets/tutors/khalila.png",
+          image: "assets/khalila.jpg",
           price: 50000,
           cardColor: const Color(0xFFFFA975),
           blobColor: const Color(0xFFD65609),
@@ -51,43 +49,43 @@ class TutorListScreen extends StatelessWidget {
           name: "Juno",
           subject: "Pemrograman Web",
           rating: "4.9",
-          image: "assets/tutors/juno.png",
+          image: "assets/juno.jpg",
           price: 50000,
           cardColor: const Color(0xFFFEB8C3),
-          blobColor: const Color(0xFFFFACB9),
+          blobColor: const Color(0xFFFF687F),
         ),
         Tutor(
-          name: "Adlin",
-          subject: "Pilates",
+          name: "Naura",
+          subject: "Teknologi Berkembang",
           rating: "4.9",
-          image: "assets/tutors/adlin.png",
+          image: "assets/naura.jpg",
           price: 50000,
           cardColor: const Color(0xFFBCC6F6),
           blobColor: const Color(0xFF566CD8),
         ),
         Tutor(
-          name: "Lea",
-          subject: "UX Design",
+          name: "Nabila",
+          subject: "Desain Pengalaman Pengguna",
           rating: "4.9",
-          image: "assets/tutors/lea.png",
+          image: "assets/nabila.png",
           price: 50000,
           cardColor: const Color(0xFFFFA975),
           blobColor: const Color(0xFFD65609),
         ),
         Tutor(
-          name: "Haryo",
+          name: "Jasmine",
           subject: "Sistem Enterprise",
           rating: "4.9",
-          image: "assets/tutors/haryo.png",
+          image: "assets/mine.png",
           price: 50000,
           cardColor: const Color(0xFFFEB8C3),
-          blobColor: const Color(0xFFFFACB9),
+          blobColor: const Color(0xFFFF687F),
         ),
         Tutor(
-          name: "Sasha",
-          subject: "Pweb",
+          name: "Sahilah",
+          subject: "Pemrograman Web",
           rating: "4.9",
-          image: "assets/tutors/sasha.png",
+          image: "assets/sahilah.png",
           price: 50000,
           cardColor: const Color(0xFFBCC6F6),
           blobColor: const Color(0xFF566CD8),
@@ -169,15 +167,16 @@ class TutorListScreen extends StatelessWidget {
   // CARD TUTOR STYLE BARU
   // ==========================
   Widget _buildTutorCard(BuildContext context, Tutor t) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(26),
-        child: Stack(
-          children: [
-            // BACKGROUND SOLID
-            Container(
-              height: 140,
+  return Container(
+    margin: const EdgeInsets.only(bottom: 16),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(26),
+      child: Stack(
+        children: [
+
+          // ✅ BACKGROUND WARNA CARD
+          Positioned.fill(
+            child: Container(
               decoration: BoxDecoration(
                 color: t.cardColor,
                 borderRadius: BorderRadius.circular(26),
@@ -190,127 +189,139 @@ class TutorListScreen extends StatelessWidget {
                 ],
               ),
             ),
+          ),
 
-            // BLOBS
-            Positioned(
-              top: -40,
-              left: -20,
-              child: _Blob(
-                color: Colors.white.withOpacity(0.22),
-                size: 150,
-              ),
+          // ✅ BLOBS DECORATION KIRI
+          Positioned(
+            top: -30,
+            left: -30,
+            child: _Blob(
+              color: Colors.white.withOpacity(0.22),
+              size: 130,
             ),
-            Positioned(
-              top: 10,
-              right: -50,
-              child: _Blob(
-                color: t.blobColor.withOpacity(0.25),
-                size: 180,
-              ),
-            ),
+          ),
 
-            // CONTENT DALAM CARD
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // FOTO
-                  Container(
-                    width: 72,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(18),
+          // ✅ BLOBS DECORATION KANAN
+          Positioned(
+            top: 20,
+            right: -45,
+            child: _Blob(
+              color: t.blobColor.withOpacity(0.25),
+              size: 145,
+            ),
+          ),
+
+          // ✅ CONTENT UTAMA CARD
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+
+                // ✅ FOTO TUTOR
+                Container(
+                  width: 72,
+                  height: 82,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(18),
+                    child: Image.asset(
+                      t.image,
+                      fit: BoxFit.cover,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Image.asset(
-                        t.image,
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
+                  ),
+                ),
+
+                const SizedBox(width: 14),
+
+                // ✅ TEXT + BUTTON
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      // NAMA
+                      Text(
+                        t.name,
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: t.blobColor,
+                        ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 14),
 
-                  // TEXTS + BUTTONS
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          t.name,
-                          style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: t.blobColor,
+                      // SUBJECT
+                      Text(
+                        t.subject,
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: t.blobColor,
+                        ),
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // ✅ HARGA + TOMBOL
+                      Row(
+                        children: [
+
+                          // HARGA
+                          Text(
+                            "Rp${t.price}",
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xFF343446),
+                            ),
                           ),
-                        ),
-                        Text(
-                          t.subject,
-                          style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: t.blobColor,
+
+                          const Spacer(),
+
+                          // ✅ CHAT BUTTON
+                          _pillButton(
+                            label: "Chat",
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ChatRoomScreen(tutorName: t.name),
+                                ),
+                              );
+                            },
                           ),
-                        ),
-                        const SizedBox(height: 6),
 
-                        // HARGA + CHAT + PESAN SESI SEJAJAR
-                        Row(
-                          children: [
-                            Text(
-                              "Rp${t.price}",
-                              style: GoogleFonts.poppins(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF343446),
-                              ),
-                            ),
+                          const SizedBox(width: 8),
 
-                            const Spacer(),
-
-                            // CHAT BUTTON
-                            _pillButton(
-                              label: "Chat",
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const ChatListScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                            const SizedBox(width: 8),
-
-                            // PESAN SESI BUTTON
-                            _pillButton(
-                              label: "Pesan Sesi",
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) =>
-                                        SelectDateScreen(tutor: t),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          // ✅ PESAN SESI BUTTON
+                          _pillButton(
+                            label: "Pesan Sesi",
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => SelectDateScreen(tutor: t),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   // ==========================
   // TOMBOL PILL PUTIH

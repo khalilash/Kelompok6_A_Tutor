@@ -32,7 +32,7 @@ class ChatRoomScreen extends StatelessWidget {
       ChatMessage(
         fromMe: true,
         text:
-          'Halo kak Adlina! salam kenal 😊\nAku mau belajar pemrograman web, masih bisa ya?',
+          'Halo kak $tutorName! salam kenal 😊\nAku mau belajar pemrograman web, masih bisa ya?',
       ),
       ChatMessage(
         fromMe: false,

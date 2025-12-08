@@ -26,7 +26,7 @@ class ChatListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> chats = [
       {
-        'name': 'Sasha',
+        'name': 'Khalila',
         'message': 'Mau diskusi lewat zoom?',
         'time': '7.30 PM',
         'unread': 1,
@@ -38,19 +38,19 @@ class ChatListScreen extends StatelessWidget {
         'unread': 3,
       },
       {
-        'name': 'Harya',
+        'name': 'Naura',
         'message': 'P',
         'time': '1.30 PM',
         'unread': 5,
       },
       {
-        'name': 'Adlina',
+        'name': 'Nabila',
         'message': 'Halo, sesi hari ini pukul 19:00 ya',
         'time': '5.40 PM',
         'unread': 0,
       },
       {
-        'name': 'Lea',
+        'name': 'Jasmine',
         'message': 'Sama sama, Sasha!',
         'time': '8.28 AM',
         'unread': 3,
