@@ -1,232 +1,183 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../supabase_client.dart';
 import '../widgets/bottom_navbar.dart';
 import 'chat_room_screen.dart';
 
-// GSM TUTOR Colors
-class GsmColors {
-  static const Color orangeDark = Color(0xFFD65609);
-  static const Color orangeLight = Color(0xFFFFA975);
-
-  static const Color purpleDark = Color(0xFF566CD8);
-  static const Color purpleLight = Color(0xFFBCC6F6);
-
-  static const Color pinkDark = Color(0xFFFFACB9);
-  static const Color pinkLight = Color(0xFFFEB8C3);
-
-  static const Color textPink = Color(0xFFFF687F);
-  static const Color textPurple = Color(0xFF566CD8);
-  static const Color textOrange = Color(0xFFD65609);
-}
-
-class ChatListScreen extends StatelessWidget {
+class ChatListScreen extends StatefulWidget {
   const ChatListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> chats = [
-      {
-        'name': 'Khalila',
-        'message': 'Mau diskusi lewat zoom?',
-        'time': '7.30 PM',
-        'unread': 1,
-      },
-      {
-        'name': 'Juno',
-        'message': 'Mau ketemu offline?',
-        'time': '9.30 AM',
-        'unread': 3,
-      },
-      {
-        'name': 'Naura',
-        'message': 'P',
-        'time': '1.30 PM',
-        'unread': 5,
-      },
-      {
-        'name': 'Nabila',
-        'message': 'Halo, sesi hari ini pukul 19:00 ya',
-        'time': '5.40 PM',
-        'unread': 0,
-      },
-      {
-        'name': 'Jasmine',
-        'message': 'Sama sama, Sasha!',
-        'time': '8.28 AM',
-        'unread': 3,
-      },
-    ];
+  State<ChatListScreen> createState() => _ChatListScreenState();
+}
 
+class _ChatListScreenState extends State<ChatListScreen> {
+  final supabase = Supabase.instance.client;
+
+  Future<List<Map<String, dynamic>>> getChats() async {
+    if (currentUserId == null) return [];
+
+    final threads = await supabase
+        .from('threads')
+        .select()
+        .or('student_id.eq.$currentUserId,tutor_id.eq.$currentUserId')
+        .order('last_message_time', ascending: false);
+
+    List<Map<String, dynamic>> results = [];
+
+    for (var t in threads) {
+      final studentId = t['student_id'];
+      final tutorId = t['tutor_id'];
+
+      final bool isStudent = currentUserId == studentId;
+      final partnerId = isStudent ? tutorId : studentId;
+
+      // Ambil nama partner dari tabel users
+      final partner = await supabase
+          .from('users')
+          .select('username')
+          .eq('id', partnerId)
+          .maybeSingle();
+
+      final unread = isStudent
+          ? (t['unread_count_student'] ?? 0)
+          : (t['unread_count_tutor'] ?? 0);
+
+      results.add({
+        "thread_id": t['id'],
+        "name": partner?['username'] ?? "User",
+        "last_message": t['last_message'] ?? "",
+        "time": t['last_message_time'],
+        "unread": unread,
+      });
+    }
+
+    return results;
+  }
+
+  String formatTime(String? iso) {
+    if (iso == null) return "";
+    final dt = DateTime.parse(iso);
+    return "${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // HEADER UNGU + CHAT TITLE + SEARCH
-          SizedBox(
-            height: 160,
-            child: Stack(
-              children: [
-                // bg gradient ungu GSM
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        GsmColors.purpleLight,
-                        GsmColors.purpleDark,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(24),
-                      bottomRight: Radius.circular(24),
-                    ),
-                  ),
-                ),
+          _header(),
 
-                // elemen lengkung putih di kiri atas
-                Positioned(
-                  top: -80,
-                  left: -120,
-                  child: Container(
-                    width: 260,
-                    height: 260,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.18),
-                      borderRadius: BorderRadius.circular(260),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: -40,
-                  left: -60,
-                  child: Container(
-                    width: 220,
-                    height: 220,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.26),
-                      borderRadius: BorderRadius.circular(220),
-                    ),
-                  ),
-                ),
-
-                // konten header: title + search
-                SafeArea(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      Text(
-                        'Chat',
-                        style: GoogleFonts.poppins(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // SEARCH BAR – KOTAK
-                      Padding(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 24),
-                        child: Container(
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.8),
-                              width: 2,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.08),
-                                blurRadius: 8,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 13,
-                                  ),
-                                  decoration: const InputDecoration(
-                                    hintText: 'Cari chat',
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                              const Icon(Icons.search),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // AREA PUTIH + LIST CHAT
           Expanded(
-            child: Container(
-              color: Colors.white,
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                itemCount: chats.length,
-                itemBuilder: (context, index) {
-                  final chat = chats[index];
-                  return _ChatItem(
-                    name: chat['name'] as String,
-                    message: chat['message'] as String,
-                    time: chat['time'] as String,
-                    unread: chat['unread'] as int,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ChatRoomScreen(
-                            tutorName: chat['name'] as String,
-                          ),
-                        ),
-                      );
-                    },
+            child: FutureBuilder(
+              future: getChats(),
+              builder: (context, snap) {
+                if (!snap.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                final chats = snap.data!;
+                if (chats.isEmpty) {
+                  return Center(
+                    child: Text("Belum ada chat",
+                        style: GoogleFonts.poppins(fontSize: 14)),
                   );
-                },
-              ),
+                }
+
+                return ListView.builder(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: chats.length,
+                  itemBuilder: (c, i) {
+                    final chat = chats[i];
+                    return _ChatTile(
+                      name: chat['name'],
+                      message: chat['last_message'],
+                      time: formatTime(chat['time']),
+                      unread: chat['unread'],
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ChatRoomScreen(
+                              tutorName: chat['name'],
+                              threadId: chat['thread_id'],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                );
+              },
             ),
-          ),
+          )
         ],
       ),
 
-      // NAVBAR GLOBAL
       bottomNavigationBar: TutorBottomNavBar(
-        currentIndex: 1, // tab chat
-        onTap: (index) {
-          // untuk sekarang, biarin kosong; navigasi utama sudah di-handle di nav bar
-        },
+        currentIndex: 1,
+        onTap: (i) {},
+      ),
+    );
+  }
+
+  Widget _header() {
+    return SizedBox(
+      height: 150,
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFBCC6F6), Color(0xFF566CD8)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                "Chat",
+                style: GoogleFonts.poppins(
+                    fontSize: 22, color: Colors.white, fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(height: 16),
+              _searchBar(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _searchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Container(
+        height: 44,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+        child: TextField(
+          decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search),
+              hintText: "Cari chat...",
+              border: InputBorder.none),
+        ),
       ),
     );
   }
 }
 
-class _ChatItem extends StatelessWidget {
-  final String name;
-  final String message;
-  final String time;
+class _ChatTile extends StatelessWidget {
+  final String name, message, time;
   final int unread;
   final VoidCallback onTap;
 
-  const _ChatItem({
+  const _ChatTile({
+    super.key,
     required this.name,
     required this.message,
     required this.time,
@@ -236,96 +187,67 @@ class _ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            color: GsmColors.purpleLight.withOpacity(0.35),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.06),
-                blurRadius: 6,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: Colors.white,
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/logo.png', // ganti nanti
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        color: GsmColors.textPurple,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      message,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        color: const Color(0xFF6E6E8F),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: const Color(0xFFE9EDFF),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 24,
+              child: Icon(Icons.person),
+            ),
+            const SizedBox(width: 10),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(name,
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600, fontSize: 16)),
                   Text(
-                    time,
-                    style: GoogleFonts.poppins(
-                      fontSize: 11,
-                      color: const Color(0xFF6E6E8F),
-                    ),
+                    message,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        GoogleFonts.poppins(fontSize: 13, color: Colors.black54),
                   ),
-                  const SizedBox(height: 6),
-                  if (unread > 0)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 3,
-                      ),
-                      decoration: BoxDecoration(
-                        color: GsmColors.purpleDark,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        unread.toString(),
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                 ],
               ),
-            ],
-          ),
+            ),
+
+            Column(
+              children: [
+                Text(time,
+                    style:
+                        GoogleFonts.poppins(fontSize: 11, color: Colors.black45)),
+                const SizedBox(height: 6),
+
+                if (unread > 0)
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF8FA8FF),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      unread.toString(),
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
+                    ),
+                  )
+              ],
+            )
+          ],
         ),
       ),
     );
