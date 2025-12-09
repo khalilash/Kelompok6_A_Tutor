@@ -52,13 +52,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() => _isLoading = true);
     try {
-      final data = await supabase
-          .from('users')
-          .select()
-          // currentUserId sudah dipastikan tidak null di atas,
-          // jadi aman pakai !
-          .eq('id', currentUserId!)
-          .maybeSingle();
+    final data = await supabase
+    .from('users')
+    .select()
+    .eq('id', currentUserId!)   // pakai ! karena sudah dicek null di atas
+    .maybeSingle();
 
       if (data != null) {
         _username = (data['username'] as String?) ?? '';
