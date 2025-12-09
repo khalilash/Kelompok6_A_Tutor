@@ -59,12 +59,15 @@ class _LoginScreenState extends State<LoginScreen> {
       final String? dbPassword = data['password'] as String?;
 
       if (dbPassword == null || dbPassword != password) {
-        // password salah
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Password salah.')),
         );
         return;
       }
+
+      // simpan id user yang login
+      currentUserId = data['id'] as String;
+      print('CURRENT USER ID: $currentUserId');
 
       // ✅ username & password benar → masuk ke HomePage
       Navigator.pushReplacement(
