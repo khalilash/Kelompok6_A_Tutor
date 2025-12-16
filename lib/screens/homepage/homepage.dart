@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static bool _hasShownTrialPopup = false;
   int navIndex = 0;
 
   void _showTrialPopup() {
@@ -37,9 +38,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showTrialPopup();
-    });
+    if (!_hasShownTrialPopup) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showTrialPopup();
+        _hasShownTrialPopup = true;
+      });
+    }
 
     _bannerTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
       if (_bannerController.hasClients) {

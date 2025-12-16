@@ -54,12 +54,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
                       size: 26,
                     ),
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const TutorListScreen(),
-                        ),
-                      );
+                      Navigator.pop(context);
                     },
                   ),
                 ),

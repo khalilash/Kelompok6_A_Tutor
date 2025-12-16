@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/screens/tutor_list_page.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -213,68 +214,80 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: PuzzleClipper(),
-      child: Container(
-        decoration: BoxDecoration(
-          color: data.light,
-        ),
-        child: Stack(
-          children: [
-
-            Positioned(
-              top: -20,
-              left: -10,
-              child: _Blob(color: Colors.white.withOpacity(0.20), size: 70),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => TutorByCategoryScreen(
+              categoryName: data.title.replaceAll('\n', ' '),
             ),
-            Positioned(
-              top: 30,
-              right: -30,
-              child: _Blob(color: Colors.white.withOpacity(0.18), size: 90),
-            ),
-            Positioned(
-              bottom: -20,
-              left: 10,
-              child: _Blob(color: Colors.white.withOpacity(0.12), size: 80),
-            ),
+          ),
+        );
+      },
+      child: ClipPath(
+        clipper: PuzzleClipper(),
+        child: Container(
+          decoration: BoxDecoration(
+            color: data.light,
+          ),
+          child: Stack(
+            children: [
 
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _IconBadge(
-                    icon: data.icon,
-                    bg: Colors.white.withOpacity(0.9),
-                    iconColor: data.textColor,
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  Text(
-                    data.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: data.textColor,
-                    ),
-                  ),
-
-                  const SizedBox(height: 6),
-
-                  Text(
-                    '${data.tutorCount} Tutor',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: data.textColor.withOpacity(0.75),
-                    ),
-                  ),
-                ],
+              Positioned(
+                top: -20,
+                left: -10,
+                child: _Blob(color: Colors.white.withOpacity(0.20), size: 70),
               ),
-            ),
-          ],
+              Positioned(
+                top: 30,
+                right: -30,
+                child: _Blob(color: Colors.white.withOpacity(0.18), size: 90),
+              ),
+              Positioned(
+                bottom: -20,
+                left: 10,
+                child: _Blob(color: Colors.white.withOpacity(0.12), size: 80),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _IconBadge(
+                      icon: data.icon,
+                      bg: Colors.white.withOpacity(0.9),
+                      iconColor: data.textColor,
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    Text(
+                      data.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13,
+                        color: data.textColor,
+                      ),
+                    ),
+
+                    const SizedBox(height: 6),
+
+                    Text(
+                      '${data.tutorCount} Tutor',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: data.textColor.withOpacity(0.75),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
