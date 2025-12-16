@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/screens/tutor_list_page.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -14,7 +15,7 @@ class _CategoryPageState extends State<CategoryPage> {
   List<CategoryData> get _mathCategories => [
         CategoryData(
           title: 'Kalkulus 1',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -22,7 +23,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Fisika\nMekanika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -30,7 +31,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Logika\nMatematika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -38,7 +39,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Geometri\nAnalitik',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -46,7 +47,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Metode\nStatistika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -54,7 +55,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Kalkulus 2',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -62,7 +63,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Riset\nOperasi',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -70,7 +71,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'UX Design',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -78,7 +79,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Sistem\nEnterprise',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -86,7 +87,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Matematika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -94,7 +95,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Etika TI',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -102,7 +103,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Pemrograman\nWeb',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -113,7 +114,7 @@ class _CategoryPageState extends State<CategoryPage> {
   List<CategoryData> get _itCategories => [
         CategoryData(
           title: 'Sistem\nBasis Data',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -121,7 +122,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Data\nLakehouse',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -129,7 +130,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Pemrograman\nDasar',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -137,7 +138,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Matematika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -145,7 +146,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Etika TI',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -153,7 +154,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Pemrograman\nWeb',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -161,7 +162,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Riset\nOperasi',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -169,7 +170,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'UX Design',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -177,7 +178,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Sistem\nEnterprise',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -188,7 +189,7 @@ class _CategoryPageState extends State<CategoryPage> {
   List<CategoryData> get _physicsCategories => [
         CategoryData(
           title: 'Geometri\nAnalitik',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -196,7 +197,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Metode\nStatistika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -204,7 +205,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Kalkulus 2',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -212,7 +213,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Riset\nOperasi',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -220,7 +221,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'UX Design',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -228,7 +229,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Sistem\nEnterprise',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -236,7 +237,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Matematika',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFD65609),
           light: const Color(0xFFFFA975),
           textColor: const Color(0xFFD65609),
@@ -244,7 +245,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Etika TI',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFF566CD8),
           light: const Color(0xFFBCC6F6),
           textColor: const Color(0xFF566CD8),
@@ -252,7 +253,7 @@ class _CategoryPageState extends State<CategoryPage> {
         ),
         CategoryData(
           title: 'Pemrograman\nWeb',
-          tutorCount: 18,
+          tutorCount: 6,
           dark: const Color(0xFFFFACB9),
           light: const Color(0xFFFEB8C3),
           textColor: const Color(0xFFFF687F),
@@ -342,8 +343,23 @@ class _CategoryPageState extends State<CategoryPage> {
                         ),
                         itemCount: _currentList.length,
                         itemBuilder: (context, index) {
-                          return CategoryCard(data: _currentList[index]);
+                          final category = _currentList[index];
+
+                          return CategoryCard(
+                            data: category,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => TutorByCategoryScreen(
+                                    categoryName: category.title.replaceAll('\n', ' '),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
                         },
+
                       ),
                     ),
                   ),
@@ -464,72 +480,94 @@ class CategoryData {
 
 class CategoryCard extends StatelessWidget {
   final CategoryData data;
+  final VoidCallback onTap;
 
-  const CategoryCard({super.key, required this.data});
+  const CategoryCard({
+    super.key,
+    required this.data,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: PuzzleClipper(),
-      child: Container(
-        decoration: BoxDecoration(
-          color: data.light,
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -20,
-              left: -10,
-              child: _Blob(color: Colors.white.withOpacity(0.20), size: 70),
-            ),
-            Positioned(
-              top: 30,
-              right: -30,
-              child: _Blob(color: Colors.white.withOpacity(0.18), size: 90),
-            ),
-            Positioned(
-              bottom: -20,
-              left: 10,
-              child: _Blob(color: Colors.white.withOpacity(0.12), size: 80),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _IconBadge(
-                    icon: data.icon,
-                    bg: Colors.white.withOpacity(0.9),
-                    iconColor: data.textColor,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: ClipPath(
+          clipper: PuzzleClipper(),
+          child: Container(
+            decoration: BoxDecoration(color: data.light),
+            child: Stack(
+              children: [
+                Positioned(
+                  top: -20,
+                  left: -10,
+                  child: _Blob(
+                    color: Colors.white.withOpacity(0.20),
+                    size: 70,
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    data.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 13,
-                      color: data.textColor,
-                    ),
+                ),
+                Positioned(
+                  top: 30,
+                  right: -30,
+                  child: _Blob(
+                    color: Colors.white.withOpacity(0.18),
+                    size: 90,
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    '${data.tutorCount} Tutor',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: data.textColor.withOpacity(0.75),
-                    ),
+                ),
+                Positioned(
+                  bottom: -20,
+                  left: 10,
+                  child: _Blob(
+                    color: Colors.white.withOpacity(0.12),
+                    size: 80,
                   ),
-                ],
-              ),
+                ),
+
+                // ⬇️ INI YANG SERING KEHAPUS
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _IconBadge(
+                        icon: data.icon,
+                        bg: Colors.white.withOpacity(0.9),
+                        iconColor: data.textColor,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        data.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                          color: data.textColor,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        '${data.tutorCount} Tutor',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: data.textColor.withOpacity(0.75),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
+
+
 
 class _IconBadge extends StatelessWidget {
   final IconData icon;
