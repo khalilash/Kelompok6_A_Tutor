@@ -9,6 +9,7 @@ import '../sesi/detail_sesi_page.dart';
 import '/screens/category_page.dart';
 import '../booking/select_date_screen.dart';
 import '/screens/tutor_list_page.dart';
+import '../../supabase_client.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String _username = '';
   static bool _hasShownTrialPopup = false;
   int navIndex = 0;
 
@@ -34,9 +36,31 @@ class _HomePageState extends State<HomePage> {
   int _bannerIndex = 0;
   Timer? _bannerTimer;
 
+  Future<void> _loadUsername() async {
+    if (currentUserId == null) return;
+
+    try {
+      final data = await supabase
+          .from('users')
+          .select('username')
+          .eq('id', currentUserId!)
+          .maybeSingle();
+
+      if (data != null && mounted) {
+        setState(() {
+          _username = (data['username'] as String?) ?? '';
+        });
+      }
+    } catch (e) {
+      debugPrint('Gagal load username: $e');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+    _loadUsername(); // ← TAMBAH BARIS INI
 
     if (!_hasShownTrialPopup) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -342,11 +366,14 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(width: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("Hello,", style: TextStyle(color: Colors.white70)),
+                children: [
+                  const Text(
+                    "Hello,",
+                    style: TextStyle(color: Colors.white70),
+                  ),
                   Text(
-                    "Sasha",
-                    style: TextStyle(
+                    _username.isEmpty ? 'User' : _username,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
