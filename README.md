@@ -42,27 +42,36 @@ Saat ini aplikasi masih menggunakan **mock/local data** dan dapat dikembangkan l
 
 ```text
 lib/
- ├─ main.dart
- ├─ splash_page.dart
- └─ screens/
-    ├─ booking/        # fitur pesan sesi
-    ├─ chat/           # chat list & chat room
-    ├─ homepage/       # home screen
-    ├─ login-register/ # welcome, register, login
-    ├─ search/         # fitur pencarian tutor
-    ├─ sesi/           # detail sesi, calling, video call, review
-    └─ widgets/        # bottom navbar, popup, dll
+├─ global/                 # Konstanta global, helper, atau konfigurasi umum
+│
+├─ screens/                # Seluruh halaman utama aplikasi
+│  ├─ booking/             # Fitur pemesanan sesi tutor
+│  ├─ chat/                # Chat list dan chat room tutor
+│  ├─ debug/               # Halaman/fitur testing dan debugging
+│  ├─ homepage/            # Halaman utama (home)
+│  ├─ login-register/      # Halaman login, register, dan welcome
+│  ├─ profilepage/         # Halaman profil pengguna
+│  ├─ search/              # Fitur pencarian tutor
+│  ├─ sesi/                # Detail sesi, status sesi, dan video call
+│  ├─ theme/               # Pengaturan tema dan styling aplikasi
+│  └─ widgets/             # Widget reusable (navbar, popup, dll)
+│
+├─ category_page.dart      # Halaman kategori tutor
+├─ tutor_list_page.dart    # Halaman daftar tutor
+├─ splash_page.dart        # Splash screen aplikasi
+├─ supabase_client.dart    # Konfigurasi client Supabase
+└─ main.dart               # Entry point aplikasi
 assets/
  ├─ images/            # ikon, foto tutor, ilustrasi
  └─ fonts/             # font Poppins
-
+```
 
 ## 🚀 Getting Started
 
 ```sh
 # Clone repo
 git clone https://github.com/khalilash/Kelompok6_A_Tutor.git 
-cd Kelompok6_Tutor_progress2
+cd Kelompok6_A_Tutor
 
 # Install dependency
 flutter pub get
